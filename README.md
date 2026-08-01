@@ -14,11 +14,11 @@
 
 | 主页 | 字母学习 |
 | --- | --- |
-| <img src="docs/screenshots/home.png" width="280" alt="CW随手练主页"> | <img src="docs/screenshots/letter-learning.png" width="280" alt="字母学习页面"> |
+| <img src="https://raw.githubusercontent.com/wutao667/ham-cw-mini-program/5637374d0b88b2df1087c6978c671c2a181c970f/docs/screenshots/home.png" width="280" alt="CW随手练主页"> | <img src="https://raw.githubusercontent.com/wutao667/ham-cw-mini-program/5637374d0b88b2df1087c6978c671c2a181c970f/docs/screenshots/letter-learning.png" width="280" alt="字母学习页面"> |
 
 | 字母听写 | 单词听写 |
 | --- | --- |
-| <img src="docs/screenshots/letter-copy.png" width="280" alt="字母听写页面"> | <img src="docs/screenshots/word-copy.png" width="280" alt="单词听写页面"> |
+| <img src="https://raw.githubusercontent.com/wutao667/ham-cw-mini-program/5637374d0b88b2df1087c6978c671c2a181c970f/docs/screenshots/letter-copy.png" width="280" alt="字母听写页面"> | <img src="https://raw.githubusercontent.com/wutao667/ham-cw-mini-program/5637374d0b88b2df1087c6978c671c2a181c970f/docs/screenshots/word-copy.png" width="280" alt="单词听写页面"> |
 
 ## 本地运行
 
