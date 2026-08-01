@@ -1,0 +1,131 @@
+.home {
+  overflow: hidden;
+}
+
+.hero {
+  position: relative;
+  padding: 48rpx 16rpx 44rpx;
+}
+
+.signal-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32rpx;
+}
+
+.signal-dot,
+.signal-dash {
+  display: block;
+  height: 14rpx;
+  margin-right: 12rpx;
+  background: #d66b3d;
+  border-radius: 999rpx;
+}
+
+.signal-dot { width: 14rpx; }
+.signal-dash { width: 48rpx; }
+
+.hero-title {
+  max-width: 620rpx;
+  margin-top: 14rpx;
+  font-size: 64rpx;
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -2rpx;
+}
+
+.hero-title text { color: #d66b3d; }
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 0 4rpx 24rpx;
+}
+
+.section-title { font-size: 34rpx; font-weight: 750; }
+.section-note { color: #829087; font-size: 23rpx; }
+.mode-list { display: flex; flex-direction: column; }
+
+.mode-card {
+  position: relative;
+  display: flex;
+  min-height: 230rpx;
+  margin-bottom: 24rpx;
+  padding: 34rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: transform 120ms ease;
+}
+
+.mode-card::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 10rpx;
+  content: '';
+  background: #31755d;
+}
+
+.mode-card.orange::before { background: #d66b3d; }
+.mode-card.blue::before { background: #48758b; }
+.mode-card-active { transform: scale(0.985); }
+
+.mode-number {
+  width: 80rpx;
+  padding-top: 2rpx;
+  color: #b1bbb5;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.mode-content { flex: 1; }
+.mode-tag { color: #31755d; font-size: 22rpx; font-weight: 700; }
+.orange .mode-tag { color: #c55b2e; }
+.blue .mode-tag { color: #48758b; }
+
+.mode-title {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8rpx;
+  font-size: 38rpx;
+  font-weight: 750;
+}
+
+.arrow { color: #9ba69f; font-weight: 400; }
+.mode-description { margin-top: 14rpx; color: #627068; font-size: 26rpx; line-height: 1.55; }
+.mode-meta { margin-top: 20rpx; color: #9a7a69; font-size: 22rpx; }
+
+.home-actions {
+  display: flex;
+  gap: 18rpx;
+  margin-top: 20rpx;
+}
+
+.home-action {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: 104rpx;
+  margin: 0;
+  border-radius: 20rpx;
+  font-size: 28rpx;
+  line-height: 1;
+}
+
+.settings-action {
+  color: #ffffff;
+  background: #31755d;
+}
+
+.about-action {
+  color: #315848;
+  background: #e1ebe4;
+}
+
+.action-icon {
+  margin-right: 12rpx;
+  font-size: 34rpx;
+}

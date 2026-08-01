@@ -1,0 +1,130 @@
+const { CHARACTERS } = require('../../utils/morse.js')
+const cwAudio = require('../../utils/cw-audio.js')
+
+const app = getApp()
+
+Page({
+  data: {
+    quickCharacters: CHARACTERS,
+    wpm: 15,
+    frequency: 650,
+    hasQuestion: false,
+    answer: '',
+    inputValue: '',
+    revealed: false,
+    isCorrect: false,
+    questionCount: 0,
+    correctCount: 0,
+    accuracy: 0,
+    counted: false,
+  },
+
+  onShow() {
+    const settings = app.globalData.cwSettings
+    this.setData({ wpm: settings.wpm, frequency: settings.frequency })
+  },
+
+  randomPlay() {
+    if (this.autoNextTimer) {
+      clearTimeout(this.autoNextTimer)
+      this.autoNextTimer = null
+    }
+
+    let answer = CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)]
+    if (CHARACTERS.length > 1 && answer === this.data.answer) {
+      answer = CHARACTERS[(CHARACTERS.indexOf(answer) + 1) % CHARACTERS.length]
+    }
+
+    this.setData({
+      hasQuestion: true,
+      answer,
+      inputValue: '',
+      revealed: false,
+      isCorrect: false,
+      counted: false,
+    })
+    setTimeout(() => this.playCurrent(), 120)
+  },
+
+  replay() {
+    if (!this.data.hasQuestion) {
+      wx.showToast({ title: '请先点击随机播放', icon: 'none' })
+      return
+    }
+    this.playCurrent()
+  },
+
+  playCurrent() {
+    cwAudio.play(this.data.answer, this.data)
+  },
+
+  onInput(event) {
+    const inputValue = event.detail.value
+      .toUpperCase()
+      .replace(/[^A-Z0-9]/g, '')
+      .slice(0, 1)
+
+    this.setData({
+      inputValue,
+      isCorrect: this.data.revealed && inputValue === this.data.answer,
+    })
+  },
+
+  revealAnswer() {
+    if (!this.data.hasQuestion) {
+      wx.showToast({ title: '请先点击随机播放', icon: 'none' })
+      return
+    }
+    const isCorrect = this.data.inputValue === this.data.answer
+    this.setData({
+      revealed: true,
+      isCorrect,
+      ...this.resultUpdate(isCorrect),
+    })
+  },
+
+  resultUpdate(isCorrect) {
+    if (this.data.counted) return {}
+    const questionCount = this.data.questionCount + 1
+    const correctCount = this.data.correctCount + (isCorrect ? 1 : 0)
+    return {
+      questionCount,
+      correctCount,
+      accuracy: Math.round((correctCount / questionCount) * 100),
+      counted: true,
+    }
+  },
+
+  quickInput(event) {
+    if (!this.data.hasQuestion) {
+      wx.showToast({ title: '请先点击随机播放', icon: 'none' })
+      return
+    }
+
+    if (this.autoNextTimer) {
+      clearTimeout(this.autoNextTimer)
+      this.autoNextTimer = null
+    }
+
+    const inputValue = event.currentTarget.dataset.character
+    const isCorrect = inputValue === this.data.answer
+    this.setData({
+      inputValue,
+      revealed: true,
+      isCorrect,
+      ...this.resultUpdate(isCorrect),
+    })
+
+    if (isCorrect) {
+      this.autoNextTimer = setTimeout(() => {
+        this.autoNextTimer = null
+        this.randomPlay()
+      }, 600)
+    }
+  },
+
+  onUnload() {
+    if (this.autoNextTimer) clearTimeout(this.autoNextTimer)
+    cwAudio.stop()
+  },
+})

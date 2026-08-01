@@ -1,0 +1,274 @@
+.intro {
+  padding: 6rpx 8rpx 18rpx;
+}
+
+.page-title {
+  margin-top: 10rpx;
+  font-size: 46rpx;
+  font-weight: 800;
+}
+
+.page-copy {
+  margin-top: 8rpx;
+  color: #647169;
+  font-size: 23rpx;
+  line-height: 1.4;
+}
+
+.player {
+  padding: 20rpx;
+}
+
+.button-row {
+  display: flex;
+}
+
+.random-button,
+.replay-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 76rpx;
+  margin: 0;
+  font-size: 24rpx;
+  line-height: 1;
+}
+
+.random-button {
+  flex: 1;
+}
+
+.replay-button {
+  width: 158rpx;
+  margin-left: 14rpx;
+  color: #173c30;
+  background: #e0eee7;
+  border-radius: 999rpx;
+}
+
+.play-icon {
+  margin-right: 14rpx;
+  font-size: 25rpx;
+}
+
+.replay-icon {
+  margin-right: 6rpx;
+  font-size: 31rpx;
+}
+
+.play-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 14rpx;
+  color: #7c8981;
+  font-size: 20rpx;
+}
+
+.status-dot {
+  width: 12rpx;
+  height: 12rpx;
+  margin-right: 10rpx;
+  background: #aeb7b1;
+  border-radius: 50%;
+}
+
+.status-dot.active {
+  background: #3f8a68;
+  box-shadow: 0 0 0 7rpx rgba(63, 138, 104, 0.12);
+}
+
+.answer-area {
+  display: flex;
+  align-items: center;
+  margin-top: 22rpx;
+}
+
+.box-group {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+}
+
+.box-label {
+  margin-bottom: 9rpx;
+  color: #536159;
+  font-size: 23rpx;
+  font-weight: 700;
+}
+
+.answer-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 230rpx;
+  height: 160rpx;
+  box-sizing: border-box;
+  color: #17221d;
+  background: #fffdf7;
+  border: 4rpx solid #ded7c9;
+  border-radius: 22rpx;
+  box-shadow: 0 10rpx 26rpx rgba(21, 48, 38, 0.07);
+  font-size: 64rpx;
+  font-weight: 800;
+  text-align: center;
+}
+
+.input-box {
+  padding: 0;
+}
+
+.answer-box.correct {
+  color: #216448;
+  background: #e2f2e8;
+  border-color: #4c9873;
+}
+
+.answer-box.wrong {
+  color: #ad432b;
+  background: #f9e6df;
+  border-color: #d36d53;
+}
+
+.reveal-box.hidden {
+  color: #607168;
+  background: #e9eee9;
+  border-style: dashed;
+}
+
+.hidden-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 23rpx;
+  font-weight: 600;
+}
+
+.eye-icon {
+  margin-bottom: 14rpx;
+  font-size: 42rpx;
+}
+
+.answer-character {
+  font-size: 64rpx;
+  font-weight: 800;
+}
+
+.reveal-pressed {
+  transform: scale(0.97);
+}
+
+.compare-mark {
+  width: 62rpx;
+  padding-top: 30rpx;
+  color: #8b958f;
+  font-size: 25rpx;
+  font-weight: 700;
+  text-align: center;
+}
+
+.box-note {
+  margin-top: 8rpx;
+  color: #8a958e;
+  font-size: 18rpx;
+  text-align: center;
+}
+
+.feedback {
+  display: flex;
+  align-items: center;
+  margin-top: 18rpx;
+  padding: 16rpx 22rpx;
+  border-radius: 16rpx;
+  font-size: 22rpx;
+}
+
+.feedback.success {
+  color: #205d43;
+  background: #dceee3;
+}
+
+.feedback.error {
+  color: #9e3d29;
+  background: #f5dfd7;
+}
+
+.feedback-icon {
+  width: 38rpx;
+  height: 38rpx;
+  margin-right: 12rpx;
+  color: #ffffff;
+  border-radius: 50%;
+  line-height: 36rpx;
+  text-align: center;
+}
+
+.feedback.success .feedback-icon {
+  background: #3f8a68;
+}
+
+.feedback.error .feedback-icon {
+  background: #c75d43;
+}
+
+.quick-section {
+  margin-top: 22rpx;
+}
+
+.quick-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 0 4rpx 12rpx;
+}
+
+.quick-title {
+  font-size: 27rpx;
+  font-weight: 750;
+}
+
+.quick-note {
+  color: #89938d;
+  font-size: 19rpx;
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10rpx;
+}
+
+.quick-key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 88rpx;
+  color: #213029;
+  background: #fffdf7;
+  border: 2rpx solid #e4ded1;
+  border-radius: 15rpx;
+  transition: transform 100ms ease;
+}
+
+.quick-character {
+  font-size: 28rpx;
+  font-weight: 750;
+}
+
+.quick-key.correct {
+  color: #ffffff;
+  background: #3f8a68;
+  border-color: #3f8a68;
+}
+
+.quick-key.wrong {
+  color: #ffffff;
+  background: #c75d43;
+  border-color: #c75d43;
+}
+
+.quick-key-pressed {
+  transform: scale(.94);
+}

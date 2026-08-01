@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="210" viewBox="0 0 260 210" role="img" aria-label="Morse mnemonic D, dah dit dit">
+  <rect width="260" height="210" rx="20" fill="#fffdf8"/>
+  <path d="M62 29 V181 H119 C177 181 205 151 205 105 C205 59 176 29 119 29 Z" fill="none" stroke="#d5d8d5" stroke-width="25" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M62 43 V167" fill="none" stroke="#101713" stroke-width="20" stroke-linecap="round"/>
+  <circle cx="143" cy="35" r="12" fill="#101713"/>
+  <circle cx="143" cy="175" r="12" fill="#101713"/>
+</svg>

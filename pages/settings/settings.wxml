@@ -1,0 +1,81 @@
+<view class="page-shell">
+  <view class="intro">
+    <text class="eyebrow">CW PLAYBACK</text>
+    <view class="page-title">播放设置</view>
+    <view class="page-copy">这里的设置会应用到字母学习、字母听写和单词听写。</view>
+  </view>
+
+  <view class="settings-card panel">
+    <view class="setting-title-row">
+      <view>
+        <text class="setting-title">发送速度</text>
+        <text class="setting-description">WPM · 每分钟单词数</text>
+      </view>
+      <view class="setting-value"><text>{{wpm}}</text> WPM</view>
+    </view>
+    <slider min="5" max="60" step="1" value="{{wpm}}" activeColor="#d66b3d" backgroundColor="#e5ded2" block-color="#d66b3d" block-size="24" bindchanging="changeWpm" bindchange="changeWpm" />
+    <view class="presets">
+      <button
+        wx:for="{{presets}}"
+        wx:key="*this"
+        class="preset {{item === wpm ? 'active' : ''}}"
+        data-wpm="{{item}}"
+        bindtap="choosePreset"
+      >{{item}}</button>
+    </view>
+  </view>
+
+  <view class="settings-card panel">
+    <view class="setting-title-row">
+      <view>
+        <text class="setting-title">音调频率</text>
+        <text class="setting-description">选择听起来舒适清晰的音高</text>
+      </view>
+      <view class="setting-value green"><text>{{frequency}}</text> Hz</view>
+    </view>
+    <slider min="400" max="900" step="50" value="{{frequency}}" activeColor="#31755d" backgroundColor="#e5ded2" block-color="#31755d" block-size="24" bindchanging="changeFrequency" bindchange="changeFrequency" />
+    <view class="frequency-scale"><text>低 · 400 Hz</text><text>900 Hz · 高</text></view>
+  </view>
+
+  <view class="standard-card panel">
+    <view class="standard-head">
+      <view>
+        <text class="standard-title">标准 CW 时值</text>
+        <text class="standard-note">当前 1 单位 = {{unitMs}} ms</text>
+      </view>
+      <view class="standard-badge">1 : 3 : 3 : 7</view>
+    </view>
+
+    <view class="timing-list">
+      <view class="timing-row">
+        <view class="symbol dot"></view>
+        <view class="timing-name"><text>点 DIT</text><text>1 个时间单位</text></view>
+        <text class="timing-ms">{{unitMs}} ms</text>
+      </view>
+      <view class="timing-row">
+        <view class="symbol dash"></view>
+        <view class="timing-name"><text>划 DAH</text><text>3 个时间单位</text></view>
+        <text class="timing-ms">{{dashMs}} ms</text>
+      </view>
+      <view class="timing-row">
+        <view class="symbol gap character"></view>
+        <view class="timing-name"><text>字符间隔</text><text>3 个时间单位</text></view>
+        <text class="timing-ms">{{characterGapMs}} ms</text>
+      </view>
+      <view class="timing-row">
+        <view class="symbol gap word"></view>
+        <view class="timing-name"><text>单词间隔</text><text>7 个时间单位</text></view>
+        <text class="timing-ms">{{wordGapMs}} ms</text>
+      </view>
+    </view>
+
+    <view class="inner-gap">同一字符内，点和划之间的间隔为 1 个时间单位。</view>
+  </view>
+
+  <button class="preview-button {{isPreviewing ? 'playing' : ''}}" bindtap="preview">
+    <text class="preview-icon">▶</text>
+    <view><text class="preview-title">试听 CQ</text><text class="preview-code">— · — ·　— — · —</text></view>
+  </button>
+
+  <view class="save-note">设置已自动保存</view>
+</view>

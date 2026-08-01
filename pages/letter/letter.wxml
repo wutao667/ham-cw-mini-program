@@ -1,0 +1,97 @@
+<view class="page-shell">
+  <view class="intro">
+    <text class="eyebrow">MODE 02 · COPY</text>
+    <view class="page-title">字母听写</view>
+    <view class="page-copy">随机听一个字母或数字，输入你的判断，再点击答案框核对。</view>
+  </view>
+
+  <view class="player panel">
+    <view class="button-row">
+      <button class="primary-button random-button" bindtap="randomPlay">
+        <text class="play-icon">▶</text>
+        <text>{{hasQuestion ? '随机播放下一题' : '随机播放'}}</text>
+      </button>
+      <button class="replay-button" bindtap="replay">
+        <text class="replay-icon">↻</text>
+        <text>重播</text>
+      </button>
+    </view>
+    <view class="play-hint">
+      <text class="status-dot {{hasQuestion ? 'active' : ''}}"></text>
+      <text>{{hasQuestion ? '题目已播放，可以重复收听' : '题库包含 A–Z 和 0–9'}}</text>
+    </view>
+  </view>
+
+  <view class="answer-area">
+    <view class="box-group">
+      <text class="box-label">你的输入</text>
+      <input
+        class="answer-box input-box {{revealed ? (isCorrect ? 'correct' : 'wrong') : ''}}"
+        value="{{inputValue}}"
+        maxlength="1"
+        placeholder="?"
+        disabled="{{!hasQuestion}}"
+        bindinput="onInput"
+      />
+      <text class="box-note">输入一个字母或数字</text>
+    </view>
+
+    <view class="compare-mark">{{revealed ? (isCorrect ? '=' : '≠') : 'VS'}}</view>
+
+    <view class="box-group">
+      <text class="box-label">正确答案</text>
+      <view
+        class="answer-box reveal-box {{revealed ? (isCorrect ? 'correct' : 'wrong') : 'hidden'}}"
+        bindtap="revealAnswer"
+        hover-class="reveal-pressed"
+      >
+        <text wx:if="{{revealed}}" class="answer-character">{{answer}}</text>
+        <view wx:else class="hidden-content">
+          <text class="eye-icon">◉</text>
+          <text>点击显示</text>
+        </view>
+      </view>
+      <text class="box-note">点击方框揭晓答案</text>
+    </view>
+  </view>
+
+  <view wx:if="{{revealed}}" class="feedback {{isCorrect ? 'success' : 'error'}}">
+    <text class="feedback-icon">{{isCorrect ? '✓' : '×'}}</text>
+    <text>{{isCorrect ? '回答正确，记住这个声音！' : '回答不一致，可以点击重播再听一次。'}}</text>
+  </view>
+
+  <view class="result-stats panel">
+    <view class="result-stat">
+      <text class="result-stat-value">{{questionCount}}</text>
+      <text class="result-stat-label">题目数量</text>
+    </view>
+    <view class="result-stat">
+      <text class="result-stat-value">{{correctCount}}</text>
+      <text class="result-stat-label">正确数量</text>
+    </view>
+    <view class="result-stat">
+      <text class="result-stat-value">{{accuracy}}%</text>
+      <text class="result-stat-label">正确率</text>
+    </view>
+  </view>
+
+  <view class="quick-section">
+    <view class="quick-head">
+      <text class="quick-title">快捷输入</text>
+      <text class="quick-note">点击后自动核对答案</text>
+    </view>
+    <view class="quick-grid">
+      <view
+        wx:for="{{quickCharacters}}"
+        wx:key="*this"
+        class="quick-key {{revealed && inputValue === item ? (isCorrect ? 'correct' : 'wrong') : ''}}"
+        data-character="{{item}}"
+        bindtap="quickInput"
+        hover-class="quick-key-pressed"
+      >
+        <text class="quick-character">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+</view>

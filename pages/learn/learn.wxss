@@ -1,0 +1,29 @@
+.intro { padding: 6rpx 8rpx 20rpx; }
+.page-title { margin-top: 10rpx; font-size: 52rpx; font-weight: 800; }
+
+.focus-card { padding: 28rpx 32rpx; transition: transform 100ms ease, border-color 150ms ease, background-color 150ms ease; }
+.focus-card.playing { background: #fbfdf9; border-color: #74a18d; }
+.focus-card-pressed { transform: scale(.99); }
+.focus-main { display: flex; align-items: stretch; }
+.character-column { display: flex; flex-shrink: 0; flex-direction: column; width: 210rpx; padding-top: 4rpx; }
+.memory-column { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; min-width: 0; margin-left: 20rpx; }
+.focus-label { display: block; color: #829087; font-size: 23rpx; }
+.focus-letter { display: block; margin-top: 4rpx; font-size: 98rpx; font-weight: 800; line-height: 1; }
+.morse-code { margin-top: 24rpx; color: #173c30; font-size: 39rpx; font-weight: 700; letter-spacing: 6rpx; white-space: nowrap; }
+
+.visual-viewport { position: relative; width: 190rpx; height: 190rpx; overflow: hidden; background: #fff; border: 2rpx solid #e6dfd3; border-radius: 16rpx; }
+.visual-image { display: block; width: 100%; height: 100%; }
+.number-visual { display: flex; align-items: center; justify-content: center; width: 190rpx; height: 190rpx; color: #17221d; background: #fff; border: 2rpx solid #e6dfd3; border-radius: 16rpx; }
+.number-character { color: #cfd2cf; font-size: 96rpx; font-weight: 800; line-height: 1; }
+.number-code { display: none; }
+.syllable-word { width: 100%; margin-top: 14rpx; padding: 12rpx 8rpx; box-sizing: border-box; color: #173c30; background: #e7efe9; border-radius: 12rpx; font-size: 21rpx; font-weight: 750; line-height: 1.3; text-align: center; word-break: break-word; }
+
+.section-title { margin: 24rpx 4rpx 16rpx; font-size: 29rpx; font-weight: 750; }
+
+.letter-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10rpx; }
+.letter-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 88rpx; background: #fffdf7; border: 2rpx solid #e4ded1; border-radius: 15rpx; transition: transform 100ms ease; }
+.letter-cell.active { color: #fff; background: #173c30; border-color: #173c30; }
+.cell-pressed { transform: scale(.94); }
+.cell-letter { font-size: 28rpx; font-weight: 750; }
+.cell-code { margin-top: 2rpx; color: #9a7361; font-size: 15rpx; letter-spacing: 1rpx; }
+.letter-cell.active .cell-code { color: #c8ddd4; }

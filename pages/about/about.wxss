@@ -1,0 +1,84 @@
+.about-page {
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.intro {
+  padding: 6rpx 8rpx 28rpx;
+}
+
+.page-title {
+  margin-top: 10rpx;
+  font-size: 52rpx;
+  font-weight: 800;
+}
+
+.about-card {
+  padding: 42rpx 34rpx 18rpx;
+}
+
+.brand-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48rpx;
+}
+
+.brand-dot,
+.brand-dash {
+  display: block;
+  height: 14rpx;
+  margin: 0 6rpx;
+  background: #d66b3d;
+  border-radius: 999rpx;
+}
+
+.brand-dot {
+  width: 14rpx;
+}
+
+.brand-dash {
+  width: 48rpx;
+}
+
+.app-name {
+  margin: 12rpx 0 38rpx;
+  font-size: 38rpx;
+  font-weight: 800;
+  text-align: center;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 104rpx;
+  border-top: 2rpx solid #ece6da;
+}
+
+.info-label {
+  color: #7c8981;
+  font-size: 24rpx;
+}
+
+.info-value {
+  color: #213029;
+  font-size: 27rpx;
+  font-weight: 700;
+}
+
+.email-value {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.copy-note {
+  margin-top: 6rpx;
+  color: #9a7361;
+  font-size: 18rpx;
+}
+
+.info-row-pressed {
+  opacity: 0.65;
+}

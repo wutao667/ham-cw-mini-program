@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="210" viewBox="0 0 260 210" role="img" aria-label="Morse mnemonic A, dit dah">
+  <rect width="260" height="210" rx="20" fill="#fffdf8"/>
+
+  <!-- The pale letterform remains visible behind the Morse marks. -->
+  <path
+    d="M52 184 L130 27 L208 184"
+    fill="none"
+    stroke="#d5d8d5"
+    stroke-width="25"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M82 124 L178 124"
+    fill="none"
+    stroke="#d5d8d5"
+    stroke-width="21"
+    stroke-linecap="round"
+  />
+
+  <!-- A = dit dah: the marks are placed directly on the letter strokes. -->
+  <circle cx="130" cy="29" r="13" fill="#101713"/>
+  <path
+    d="M78 124 L182 124"
+    fill="none"
+    stroke="#101713"
+    stroke-width="20"
+    stroke-linecap="round"
+  />
+</svg>

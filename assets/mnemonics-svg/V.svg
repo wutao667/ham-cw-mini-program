@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="210" viewBox="0 0 260 210" role="img" aria-label="Morse mnemonic V">
+  <rect width="260" height="210" rx="20" fill="#fffdf8"/>
+  <path d="M43 30 L130 165 L217 30" fill="none" stroke="#d5d8d5" stroke-width="25" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle class="dot" fill="#101713" cx="43" cy="33" r="12"/><circle class="dot" fill="#101713" cx="217" cy="33" r="12"/><circle class="dot" fill="#101713" cx="130" cy="164" r="12"/><path class="dash" fill="none" stroke="#101713" stroke-width="20" stroke-linecap="round" d="M70 190 H190"/>
+</svg>

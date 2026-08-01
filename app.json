@@ -1,0 +1,21 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/learn/learn",
+    "pages/letter/letter",
+    "pages/word/word",
+    "pages/about/about",
+    "pages/settings/settings"
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "CW 入门",
+    "navigationBarBackgroundColor": "#10241d",
+    "backgroundColor": "#f4f0e6",
+    "backgroundTextStyle": "dark"
+  },
+  "style": "v2",
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

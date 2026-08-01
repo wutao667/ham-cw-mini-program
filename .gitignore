@@ -1,0 +1,11 @@
+# WeChat Developer Tools local preferences
+project.private.config.json
+
+# Generated and reference-only images
+assets/mnemonics/
+assets/mnemonics-svg/*-preview.png
+scripts/source/
+
+# OS metadata
+.DS_Store
+Thumbs.db

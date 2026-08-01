@@ -1,0 +1,52 @@
+<view class="page-shell">
+  <view class="intro">
+    <text class="eyebrow">MODE 01 · LEARN</text>
+    <view class="page-title">字母学习</view>
+  </view>
+
+  <view
+    class="focus-card panel {{isPlaying ? 'playing' : ''}}"
+    bindtap="playCurrent"
+    hover-class="focus-card-pressed"
+    role="button"
+    aria-label="播放当前字符"
+  >
+    <view class="focus-main">
+      <view class="character-column">
+        <text class="focus-label">当前字母</text>
+        <text class="focus-letter">{{current.letter}}</text>
+        <view class="morse-code">{{current.code}}</view>
+        <view class="syllable-word">{{current.syllable}}</view>
+      </view>
+      <view class="memory-column">
+        <view wx:if="{{current.isLetter}}" class="visual-viewport">
+          <image
+            class="visual-image"
+            src="{{current.visualSrc}}"
+            mode="aspectFit"
+          />
+        </view>
+        <view wx:else class="number-visual">
+          <text class="number-character">{{current.letter}}</text>
+          <text class="number-code">{{current.code}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section-title">字母与数字</view>
+  <view class="letter-grid">
+    <view
+      wx:for="{{characters}}"
+      wx:key="character"
+      class="letter-cell {{index === currentIndex ? 'active' : ''}}"
+      data-index="{{index}}"
+      bindtap="selectLetter"
+      hover-class="cell-pressed"
+    >
+      <text class="cell-letter">{{item.character}}</text>
+      <text class="cell-code">{{item.code}}</text>
+    </view>
+  </view>
+
+</view>

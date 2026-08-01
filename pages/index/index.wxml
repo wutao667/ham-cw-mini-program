@@ -1,0 +1,46 @@
+<view class="page-shell home">
+  <view class="hero">
+    <view class="signal-row" aria-hidden="true">
+      <text class="signal-dot"></text>
+      <text class="signal-dash"></text>
+      <text class="signal-dot"></text>
+    </view>
+    <text class="eyebrow">HAM CW TRAINER</text>
+    <view class="hero-title">CW<text>随手练</text></view>
+  </view>
+
+  <view class="section-head">
+    <text class="section-title">选择训练模式</text>
+    <text class="section-note">循序渐进</text>
+  </view>
+
+  <view class="mode-list">
+    <view
+      wx:for="{{modes}}"
+      wx:key="url"
+      class="mode-card panel {{item.accent}}"
+      data-url="{{item.url}}"
+      bindtap="openMode"
+      hover-class="mode-card-active"
+    >
+      <view class="mode-number">{{item.number}}</view>
+      <view class="mode-content">
+        <text class="mode-tag">{{item.tag}}</text>
+        <view class="mode-title">{{item.title}} <text class="arrow">→</text></view>
+        <view class="mode-description">{{item.description}}</view>
+        <view class="mode-meta">{{item.meta}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="home-actions">
+    <button class="home-action settings-action" bindtap="openSettings">
+      <text class="action-icon">⚙</text>
+      <text>设置</text>
+    </button>
+    <button class="home-action about-action" bindtap="openAbout">
+      <text class="action-icon">ⓘ</text>
+      <text>关于</text>
+    </button>
+  </view>
+</view>
