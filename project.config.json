@@ -2,7 +2,156 @@
   "compileType": "miniprogram",
   "libVersion": "trial",
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      {
+        "type": "folder",
+        "value": ".git"
+      },
+      {
+        "type": "folder",
+        "value": "docs"
+      },
+      {
+        "type": "folder",
+        "value": "scripts"
+      },
+      {
+        "type": "folder",
+        "value": "assets/mnemonics"
+      },
+      {
+        "type": "file",
+        "value": ".gitignore"
+      },
+      {
+        "type": "file",
+        "value": "README.md"
+      },
+      {
+        "type": "file",
+        "value": "project.private.config.json"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/A-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/AZ-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/AZ-summary.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/B-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/BCDE-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/C-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/D-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/E-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/F-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/G-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/H-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/I-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/J-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/K-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/L-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/M-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/N-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/O-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/P-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/Q-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/R-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/S-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/T-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/U-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/V-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/VWX-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/W-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/X-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/Y-preview.png"
+      },
+      {
+        "type": "file",
+        "value": "assets/mnemonics-svg/Z-preview.png"
+      }
+    ],
     "include": []
   },
   "setting": {
