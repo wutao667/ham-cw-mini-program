@@ -66,19 +66,3 @@
   font-size: 27rpx;
   font-weight: 700;
 }
-
-.email-value {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.copy-note {
-  margin-top: 6rpx;
-  color: #9a7361;
-  font-size: 18rpx;
-}
-
-.info-row-pressed {
-  opacity: 0.65;
-}

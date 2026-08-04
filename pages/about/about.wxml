@@ -20,12 +20,9 @@
       <text class="info-label">更新日期</text>
       <text class="info-value">2026-08-01</text>
     </view>
-    <view class="info-row email-row" bindtap="copyEmail" hover-class="info-row-pressed">
+    <view class="info-row">
       <text class="info-label">联系方式</text>
-      <view class="email-value">
-        <text class="info-value">wutao667@gmail.com</text>
-        <text class="copy-note">点击复制</text>
-      </view>
+      <text class="info-value">wutao667@gmail.com</text>
     </view>
   </view>
 </view>
