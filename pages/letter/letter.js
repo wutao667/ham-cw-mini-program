@@ -2,6 +2,9 @@ const { CHARACTERS, MORSE, toDisplay } = require('../../utils/morse.js')
 const cwAudio = require('../../utils/cw-audio.js')
 
 const app = getApp()
+const toAnswerDisplay = code => (
+  toDisplay(code).replace(/—/g, '–').split('').join('\u00A0')
+)
 const QUICK_CHARACTERS = CHARACTERS.map(character => ({
   character,
   errorCount: 0,
@@ -44,7 +47,7 @@ Page({
     this.setData({
       hasQuestion: true,
       answer,
-      answerCode: toDisplay(MORSE[answer]),
+      answerCode: toAnswerDisplay(MORSE[answer]),
       inputValue: '',
       inputCode: '',
       revealed: false,
@@ -74,7 +77,7 @@ Page({
 
     this.setData({
       inputValue,
-      inputCode: inputValue ? toDisplay(MORSE[inputValue]) : '',
+      inputCode: inputValue ? toAnswerDisplay(MORSE[inputValue]) : '',
       isCorrect: this.data.revealed && inputValue === this.data.answer,
     })
   },
@@ -129,7 +132,7 @@ Page({
     const isCorrect = inputValue === this.data.answer
     this.setData({
       inputValue,
-      inputCode: toDisplay(MORSE[inputValue]),
+      inputCode: toAnswerDisplay(MORSE[inputValue]),
       revealed: true,
       isCorrect,
       ...this.resultUpdate(isCorrect),

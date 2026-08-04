@@ -136,8 +136,9 @@
   margin-top: 8rpx;
   font-size: 22rpx;
   font-weight: 700;
-  letter-spacing: 4rpx;
+  letter-spacing: 0;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .answer-box.correct {
@@ -187,8 +188,9 @@
   margin-top: 10rpx;
   font-size: 22rpx;
   font-weight: 700;
-  letter-spacing: 4rpx;
+  letter-spacing: 0;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .reveal-pressed {
