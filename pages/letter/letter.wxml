@@ -96,7 +96,7 @@
         hover-class="quick-key-pressed"
       >
         <text class="quick-character">{{item.character}}</text>
-        <text class="quick-error">错 {{item.errorCount}}</text>
+        <text wx:if="{{item.errorCount > 0}}" class="quick-error">错 {{item.errorCount}}</text>
       </view>
     </view>
   </view>
