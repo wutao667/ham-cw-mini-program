@@ -116,8 +116,28 @@
   text-align: center;
 }
 
-.input-box {
+.input-answer-box {
+  flex-direction: column;
+}
+
+.input-character {
+  width: 100%;
+  height: 72rpx;
   padding: 0;
+  box-sizing: border-box;
+  color: inherit;
+  font-size: 64rpx;
+  font-weight: 800;
+  line-height: 72rpx;
+  text-align: center;
+}
+
+.input-code {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  font-weight: 700;
+  letter-spacing: 4rpx;
+  line-height: 1;
 }
 
 .answer-box.correct {

@@ -16,6 +16,7 @@ Page({
     answer: '',
     answerCode: '',
     inputValue: '',
+    inputCode: '',
     revealed: false,
     isCorrect: false,
     questionCount: 0,
@@ -45,6 +46,7 @@ Page({
       answer,
       answerCode: toDisplay(MORSE[answer]),
       inputValue: '',
+      inputCode: '',
       revealed: false,
       isCorrect: false,
       counted: false,
@@ -72,6 +74,7 @@ Page({
 
     this.setData({
       inputValue,
+      inputCode: inputValue ? toDisplay(MORSE[inputValue]) : '',
       isCorrect: this.data.revealed && inputValue === this.data.answer,
     })
   },
@@ -126,6 +129,7 @@ Page({
     const isCorrect = inputValue === this.data.answer
     this.setData({
       inputValue,
+      inputCode: toDisplay(MORSE[inputValue]),
       revealed: true,
       isCorrect,
       ...this.resultUpdate(isCorrect),

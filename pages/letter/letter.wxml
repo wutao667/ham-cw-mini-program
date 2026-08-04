@@ -25,14 +25,17 @@
   <view class="answer-area">
     <view class="box-group">
       <text class="box-label">你的输入</text>
-      <input
-        class="answer-box input-box {{revealed ? (isCorrect ? 'correct' : 'wrong') : ''}}"
-        value="{{inputValue}}"
-        maxlength="1"
-        placeholder="?"
-        disabled="{{!hasQuestion}}"
-        bindinput="onInput"
-      />
+      <view class="answer-box input-answer-box {{revealed ? (isCorrect ? 'correct' : 'wrong') : ''}}">
+        <input
+          class="input-character"
+          value="{{inputValue}}"
+          maxlength="1"
+          placeholder="?"
+          disabled="{{!hasQuestion}}"
+          bindinput="onInput"
+        />
+        <text wx:if="{{inputValue}}" class="input-code">{{inputCode}}</text>
+      </view>
       <text class="box-note">输入一个字母或数字</text>
     </view>
 
