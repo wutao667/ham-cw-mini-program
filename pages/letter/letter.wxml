@@ -45,7 +45,10 @@
         bindtap="revealAnswer"
         hover-class="reveal-pressed"
       >
-        <text wx:if="{{revealed}}" class="answer-character">{{answer}}</text>
+        <view wx:if="{{revealed}}" class="answer-content">
+          <text class="answer-character">{{answer}}</text>
+          <text class="answer-code">{{answerCode}}</text>
+        </view>
         <view wx:else class="hidden-content">
           <text class="eye-icon">◉</text>
           <text>点击显示</text>
@@ -83,13 +86,14 @@
     <view class="quick-grid">
       <view
         wx:for="{{quickCharacters}}"
-        wx:key="*this"
-        class="quick-key {{revealed && inputValue === item ? (isCorrect ? 'correct' : 'wrong') : ''}}"
-        data-character="{{item}}"
+        wx:key="character"
+        class="quick-key {{revealed && inputValue === item.character ? (isCorrect ? 'correct' : 'wrong') : ''}}"
+        data-character="{{item.character}}"
         bindtap="quickInput"
         hover-class="quick-key-pressed"
       >
-        <text class="quick-character">{{item}}</text>
+        <text class="quick-character">{{item.character}}</text>
+        <text class="quick-error">错 {{item.errorCount}}</text>
       </view>
     </view>
   </view>

@@ -1,15 +1,20 @@
-const { CHARACTERS } = require('../../utils/morse.js')
+const { CHARACTERS, MORSE, toDisplay } = require('../../utils/morse.js')
 const cwAudio = require('../../utils/cw-audio.js')
 
 const app = getApp()
+const QUICK_CHARACTERS = CHARACTERS.map(character => ({
+  character,
+  errorCount: 0,
+}))
 
 Page({
   data: {
-    quickCharacters: CHARACTERS,
+    quickCharacters: QUICK_CHARACTERS,
     wpm: 15,
     frequency: 650,
     hasQuestion: false,
     answer: '',
+    answerCode: '',
     inputValue: '',
     revealed: false,
     isCorrect: false,
@@ -38,6 +43,7 @@ Page({
     this.setData({
       hasQuestion: true,
       answer,
+      answerCode: toDisplay(MORSE[answer]),
       inputValue: '',
       revealed: false,
       isCorrect: false,
@@ -87,12 +93,22 @@ Page({
     if (this.data.counted) return {}
     const questionCount = this.data.questionCount + 1
     const correctCount = this.data.correctCount + (isCorrect ? 1 : 0)
-    return {
+    const update = {
       questionCount,
       correctCount,
       accuracy: Math.round((correctCount / questionCount) * 100),
       counted: true,
     }
+
+    if (!isCorrect) {
+      update.quickCharacters = this.data.quickCharacters.map(item => (
+        item.character === this.data.answer
+          ? { ...item, errorCount: item.errorCount + 1 }
+          : item
+      ))
+    }
+
+    return update
   },
 
   quickInput(event) {

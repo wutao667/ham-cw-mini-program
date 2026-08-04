@@ -154,6 +154,21 @@
 .answer-character {
   font-size: 64rpx;
   font-weight: 800;
+  line-height: 1;
+}
+
+.answer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.answer-code {
+  margin-top: 10rpx;
+  font-size: 22rpx;
+  font-weight: 700;
+  letter-spacing: 4rpx;
+  line-height: 1;
 }
 
 .reveal-pressed {
@@ -242,6 +257,7 @@
 
 .quick-key {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 88rpx;
@@ -257,6 +273,14 @@
   font-weight: 750;
 }
 
+.quick-error {
+  margin-top: 5rpx;
+  color: #9aa39d;
+  font-size: 16rpx;
+  font-weight: 500;
+  line-height: 1;
+}
+
 .quick-key.correct {
   color: #ffffff;
   background: #3f8a68;
@@ -267,6 +291,11 @@
   color: #ffffff;
   background: #c75d43;
   border-color: #c75d43;
+}
+
+.quick-key.correct .quick-error,
+.quick-key.wrong .quick-error {
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .quick-key-pressed {
