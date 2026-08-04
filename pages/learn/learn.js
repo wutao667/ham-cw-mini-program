@@ -3,10 +3,14 @@ const { getMnemonic } = require('../../utils/mnemonics.js')
 const cwAudio = require('../../utils/cw-audio.js')
 
 const app = getApp()
+const toSpacedDisplay = code => toDisplay(code).split('').join('\u00A0')
 
 Page({
   data: {
-    characters: CHARACTERS.map(character => ({ character, code: toDisplay(MORSE[character]) })),
+    characters: CHARACTERS.map(character => ({
+      character,
+      code: toSpacedDisplay(MORSE[character]),
+    })),
     currentIndex: 0,
     current: {
       letter: 'A',

@@ -25,5 +25,5 @@
 .letter-cell.active { color: #fff; background: #173c30; border-color: #173c30; }
 .cell-pressed { transform: scale(.94); }
 .cell-letter { font-size: 28rpx; font-weight: 750; }
-.cell-code { margin-top: 2rpx; color: #9a7361; font-size: 15rpx; letter-spacing: 1rpx; }
+.cell-code { margin-top: 2rpx; color: #9a7361; font-size: 15rpx; letter-spacing: 0; white-space: nowrap; }
 .letter-cell.active .cell-code { color: #c8ddd4; }
