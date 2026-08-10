@@ -18,7 +18,7 @@
     </view>
     <view class="info-row">
       <text class="info-label">版本号</text>
-      <text class="info-value">1.0.2</text>
+      <text class="info-value">1.1.0</text>
     </view>
     <view class="info-row">
       <text class="info-label">更新日期</text>
