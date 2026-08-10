@@ -1,5 +1,6 @@
 const { CHARACTERS, MORSE, toDisplay } = require('../../utils/morse.js')
 const { addLetterScore } = require('../../utils/score-history.js')
+const { appendSelection, chooseSoftRandom } = require('../../utils/soft-random.js')
 const cwAudio = require('../../utils/cw-audio.js')
 
 const app = getApp()
@@ -42,10 +43,8 @@ Page({
     }
     this.startSessionTimer()
 
-    let answer = CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)]
-    if (CHARACTERS.length > 1 && answer === this.data.answer) {
-      answer = CHARACTERS[(CHARACTERS.indexOf(answer) + 1) % CHARACTERS.length]
-    }
+    const answer = chooseSoftRandom(CHARACTERS, this.questionHistory || [])
+    this.questionHistory = appendSelection(this.questionHistory || [], answer)
 
     this.setData({
       hasQuestion: true,
@@ -199,6 +198,7 @@ Page({
     if (this.averageTimer) clearInterval(this.averageTimer)
     this.averageTimer = null
     this.sessionStartTime = null
+    this.questionHistory = []
     cwAudio.stop()
   },
 })
