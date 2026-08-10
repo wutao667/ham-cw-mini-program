@@ -33,7 +33,9 @@ Page({
       .sort((a, b) => a.recordedAt - b.recordedAt)
       .map(record => ({
         ...record,
-        includeInTrend: record.includeInTrend === true,
+        includeInTrend: record.trendPreferenceSet === true
+          ? record.includeInTrend !== false
+          : true,
         questionCount: Number(record.questionCount) || 0,
         correctCount: Number(record.correctCount) || 0,
         accuracy: Number(record.accuracy) || 0,

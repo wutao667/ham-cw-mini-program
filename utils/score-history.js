@@ -9,7 +9,8 @@ function addLetterScore(score) {
   const history = getLetterScoreHistory()
   const record = {
     ...score,
-    includeInTrend: false,
+    includeInTrend: true,
+    trendPreferenceSet: false,
     id: `${score.recordedAt}-${history.length}`,
   }
   history.push(record)
@@ -23,7 +24,11 @@ function setLetterScoreTrendInclusion(id, includeInTrend) {
   const updatedHistory = history.map(record => {
     if (record.id !== id) return record
     found = true
-    return { ...record, includeInTrend: Boolean(includeInTrend) }
+    return {
+      ...record,
+      includeInTrend: Boolean(includeInTrend),
+      trendPreferenceSet: true,
+    }
   })
   if (!found) return false
   wx.setStorageSync(LETTER_SCORE_HISTORY_KEY, updatedHistory)

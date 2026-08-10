@@ -326,14 +326,16 @@
 
 .score-actions {
   display: flex;
+  justify-content: center;
   margin-top: 28rpx;
 }
 
 .score-button {
   display: flex;
-  flex: 1;
+  flex: none;
   align-items: center;
   justify-content: center;
+  width: 32%;
   height: 88rpx;
   margin: 0;
   padding: 0;
@@ -349,7 +351,7 @@
 }
 
 .history-score-button {
-  margin-left: 14rpx;
+  margin-left: 20rpx;
   color: #173c30;
   background: #e0eee7;
 }
