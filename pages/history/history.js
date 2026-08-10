@@ -15,6 +15,37 @@ function formatAxisTime(timestamp) {
   return `${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`
 }
 
+function createRelativeScale(values, options) {
+  const dataMinimum = Math.min(...values)
+  const dataMaximum = Math.max(...values)
+  const dataRange = dataMaximum - dataMinimum
+  const minimumSpan = options.minimumSpan
+  const padding = Math.max(dataRange * 0.15, minimumSpan * 0.1)
+  let minimum = dataMinimum - padding
+  let maximum = dataMaximum + padding
+
+  if (maximum - minimum < minimumSpan) {
+    const center = (dataMinimum + dataMaximum) / 2
+    minimum = center - minimumSpan / 2
+    maximum = center + minimumSpan / 2
+  }
+  if (minimum < options.lowerBound) {
+    maximum += options.lowerBound - minimum
+    minimum = options.lowerBound
+  }
+  if (maximum > options.upperBound) {
+    minimum -= maximum - options.upperBound
+    maximum = options.upperBound
+  }
+  minimum = Math.max(options.lowerBound, minimum)
+  maximum = Math.min(options.upperBound, maximum)
+
+  const factor = Math.pow(10, options.decimalPlaces)
+  minimum = Math.floor(minimum * factor) / factor
+  maximum = Math.ceil(maximum * factor) / factor
+  return { minimum, maximum }
+}
+
 Page({
   data: {
     records: [],
@@ -41,6 +72,7 @@ Page({
         accuracy: Number(record.accuracy) || 0,
         averageTimeValue: Number(record.averageTime) || 0,
         averageTime: (Number(record.averageTime) || 0).toFixed(1),
+        wpmText: Number(record.wpm) > 0 ? String(Number(record.wpm)) : '—',
         dateText: formatDate(record.recordedAt),
         axisTime: formatAxisTime(record.recordedAt),
       }))
@@ -102,8 +134,14 @@ Page({
     }
     const plotWidth = plot.right - plot.left
     const plotHeight = plot.bottom - plot.top
-    const maxAverage = Math.max(...records.map(record => record.averageTimeValue), 1)
-    const averageScale = Math.ceil(maxAverage * 1.15 * 10) / 10
+    const accuracyScale = createRelativeScale(
+      records.map(record => record.accuracy),
+      { minimumSpan: 10, lowerBound: 0, upperBound: 100, decimalPlaces: 0 },
+    )
+    const averageScale = createRelativeScale(
+      records.map(record => record.averageTimeValue),
+      { minimumSpan: 1, lowerBound: 0, upperBound: Infinity, decimalPlaces: 1 },
+    )
     const getX = index => (
       records.length === 1
         ? plot.left + plotWidth / 2
@@ -123,19 +161,25 @@ Page({
     context.setFillStyle('#829087')
     context.setFontSize(10)
     context.setTextAlign('left')
-    context.fillText('100%', 2, plot.top + 4)
-    context.fillText('0%', 12, plot.bottom + 4)
+    context.fillText(`${accuracyScale.maximum.toFixed(0)}%`, 2, plot.top + 4)
+    context.fillText(`${accuracyScale.minimum.toFixed(0)}%`, 2, plot.bottom + 4)
     context.setTextAlign('right')
-    context.fillText(`${averageScale.toFixed(1)}s`, width - 2, plot.top + 4)
-    context.fillText('0.0s', width - 2, plot.bottom + 4)
+    context.fillText(`${averageScale.maximum.toFixed(1)}s`, width - 2, plot.top + 4)
+    context.fillText(`${averageScale.minimum.toFixed(1)}s`, width - 2, plot.bottom + 4)
 
     const accuracyPoints = records.map((record, index) => ({
       x: getX(index),
-      y: plot.bottom - (Math.max(0, Math.min(100, record.accuracy)) / 100) * plotHeight,
+      y: plot.bottom - (
+        (record.accuracy - accuracyScale.minimum)
+        / (accuracyScale.maximum - accuracyScale.minimum)
+      ) * plotHeight,
     }))
     const timePoints = records.map((record, index) => ({
       x: getX(index),
-      y: plot.bottom - (record.averageTimeValue / averageScale) * plotHeight,
+      y: plot.bottom - (
+        (record.averageTimeValue - averageScale.minimum)
+        / (averageScale.maximum - averageScale.minimum)
+      ) * plotHeight,
     }))
 
     this.drawLine(context, accuracyPoints, '#3f8a68')

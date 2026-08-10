@@ -68,6 +68,10 @@
           <text class="metric-value">{{item.averageTime}}s</text>
           <text class="metric-label">平均时间</text>
         </view>
+        <view class="record-metric">
+          <text class="metric-value">{{item.wpmText}}</text>
+          <text class="metric-label">WPM</text>
+        </view>
       </view>
     </view>
   </view>

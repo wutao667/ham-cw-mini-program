@@ -152,6 +152,7 @@ Page({
         correctCount: this.data.correctCount,
         accuracy: this.data.accuracy,
         averageTime: Number(averageTime),
+        wpm: this.data.wpm,
       })
       this.setData({ averageTime })
       wx.showToast({ title: '成绩已记录', icon: 'success' })
