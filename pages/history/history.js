@@ -1,4 +1,7 @@
-const { getLetterScoreHistory } = require('../../utils/score-history.js')
+const {
+  getLetterScoreHistory,
+  setLetterScoreTrendInclusion,
+} = require('../../utils/score-history.js')
 
 const pad = value => String(value).padStart(2, '0')
 
@@ -16,14 +19,21 @@ Page({
   data: {
     records: [],
     hasRecords: false,
+    hasChartRecords: false,
+    trendRecordCount: 0,
   },
 
   onShow() {
-    const chartRecords = getLetterScoreHistory()
+    this.loadHistory()
+  },
+
+  loadHistory() {
+    const records = getLetterScoreHistory()
       .filter(record => record && record.recordedAt)
       .sort((a, b) => a.recordedAt - b.recordedAt)
       .map(record => ({
         ...record,
+        includeInTrend: record.includeInTrend === true,
         questionCount: Number(record.questionCount) || 0,
         correctCount: Number(record.correctCount) || 0,
         accuracy: Number(record.accuracy) || 0,
@@ -32,14 +42,31 @@ Page({
         dateText: formatDate(record.recordedAt),
         axisTime: formatAxisTime(record.recordedAt),
       }))
+    const chartRecords = records.filter(record => record.includeInTrend)
 
     this.chartRecords = chartRecords
     this.setData({
-      records: chartRecords.slice().reverse(),
-      hasRecords: chartRecords.length > 0,
+      records: records.slice().reverse(),
+      hasRecords: records.length > 0,
+      hasChartRecords: chartRecords.length > 0,
+      trendRecordCount: chartRecords.length,
     }, () => {
       if (this.chartReady) this.drawChart()
     })
+  },
+
+  toggleTrendInclusion(event) {
+    const id = event.currentTarget.dataset.recordId
+    const includeInTrend = event.detail.value
+    try {
+      if (!setLetterScoreTrendInclusion(id, includeInTrend)) {
+        throw new Error('Score record not found')
+      }
+      this.loadHistory()
+    } catch (error) {
+      wx.showToast({ title: '状态保存失败，请稍后重试', icon: 'none' })
+      this.loadHistory()
+    }
   },
 
   onReady() {

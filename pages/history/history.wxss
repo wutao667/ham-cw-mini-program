@@ -92,12 +92,37 @@
   box-shadow: none;
 }
 
-.record-time {
-  padding: 0 8rpx 16rpx;
-  color: #536159;
+.record-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4rpx 16rpx 8rpx;
   border-bottom: 2rpx solid #ece6da;
+}
+
+.record-time {
+  min-width: 0;
+  color: #536159;
   font-size: 22rpx;
   font-weight: 700;
+}
+
+.trend-toggle {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  margin-left: 12rpx;
+}
+
+.trend-toggle-label {
+  color: #829087;
+  font-size: 18rpx;
+}
+
+.trend-switch {
+  margin-left: 4rpx;
+  transform: scale(.72);
+  transform-origin: right center;
 }
 
 .record-metrics {

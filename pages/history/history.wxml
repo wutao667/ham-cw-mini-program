@@ -7,7 +7,7 @@
   <view class="chart-card panel">
     <view class="chart-header">
       <text class="section-title">成绩趋势</text>
-      <text class="record-total">{{records.length}} 次记录</text>
+      <text class="record-total">{{trendRecordCount}} 次计入</text>
     </view>
     <view class="chart-legend">
       <view class="legend-item">
@@ -20,14 +20,14 @@
       </view>
     </view>
     <canvas
-      wx:if="{{hasRecords}}"
+      wx:if="{{hasChartRecords}}"
       id="scoreChart"
       class="score-chart"
       canvas-id="scoreChart"
     ></canvas>
     <view wx:else class="empty-chart">
       <text class="empty-chart-icon">↗</text>
-      <text>记录成绩后，这里会显示趋势曲线</text>
+      <text>打开“计入趋势”开关后显示曲线</text>
     </view>
   </view>
 
@@ -38,7 +38,19 @@
 
   <view wx:if="{{hasRecords}}" class="record-list">
     <view wx:for="{{records}}" wx:key="id" class="record-card panel">
-      <view class="record-time">{{item.dateText}}</view>
+      <view class="record-header">
+        <view class="record-time">{{item.dateText}}</view>
+        <view class="trend-toggle">
+          <text class="trend-toggle-label">计入趋势</text>
+          <switch
+            class="trend-switch"
+            checked="{{item.includeInTrend}}"
+            color="#3f8a68"
+            data-record-id="{{item.id}}"
+            bindchange="toggleTrendInclusion"
+          />
+        </view>
+      </view>
       <view class="record-metrics">
         <view class="record-metric">
           <text class="metric-value">{{item.questionCount}}</text>
