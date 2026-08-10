@@ -105,4 +105,9 @@
     </view>
   </view>
 
+  <view class="score-actions">
+    <button class="score-button record-score-button" bindtap="recordScore">记录成绩</button>
+    <button class="score-button history-score-button" bindtap="openHistory">历史成绩</button>
+  </view>
+
 </view>

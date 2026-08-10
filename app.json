@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/learn/learn",
     "pages/letter/letter",
+    "pages/history/history",
     "pages/word/word",
     "pages/about/about",
     "pages/settings/settings"

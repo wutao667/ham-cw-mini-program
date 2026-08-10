@@ -1,4 +1,5 @@
 const { CHARACTERS, MORSE, toDisplay } = require('../../utils/morse.js')
+const { addLetterScore } = require('../../utils/score-history.js')
 const cwAudio = require('../../utils/cw-audio.js')
 
 const app = getApp()
@@ -135,6 +136,33 @@ Page({
   updateAverageTime() {
     const averageTime = this.calculateAverageTime()
     if (averageTime !== this.data.averageTime) this.setData({ averageTime })
+  },
+
+  recordScore() {
+    if (this.data.questionCount === 0) {
+      wx.showToast({ title: '请先完成至少一题', icon: 'none' })
+      return
+    }
+
+    const averageTime = this.calculateAverageTime()
+    const recordedAt = Date.now()
+    try {
+      addLetterScore({
+        recordedAt,
+        questionCount: this.data.questionCount,
+        correctCount: this.data.correctCount,
+        accuracy: this.data.accuracy,
+        averageTime: Number(averageTime),
+      })
+      this.setData({ averageTime })
+      wx.showToast({ title: '成绩已记录', icon: 'success' })
+    } catch (error) {
+      wx.showToast({ title: '记录失败，请稍后重试', icon: 'none' })
+    }
+  },
+
+  openHistory() {
+    wx.navigateTo({ url: '/pages/history/history' })
   },
 
   quickInput(event) {

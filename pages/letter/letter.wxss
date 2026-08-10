@@ -323,3 +323,33 @@
 .quick-key-pressed {
   transform: scale(.94);
 }
+
+.score-actions {
+  display: flex;
+  margin-top: 28rpx;
+}
+
+.score-button {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: 88rpx;
+  margin: 0;
+  padding: 0;
+  border-radius: 18rpx;
+  font-size: 25rpx;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.record-score-button {
+  color: #ffffff;
+  background: #d66b3d;
+}
+
+.history-score-button {
+  margin-left: 14rpx;
+  color: #173c30;
+  background: #e0eee7;
+}

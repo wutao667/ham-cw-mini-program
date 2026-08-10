@@ -1,0 +1,64 @@
+<view class="page-shell history-page">
+  <view class="intro">
+    <text class="eyebrow">PROGRESS</text>
+    <view class="page-title">历史成绩</view>
+  </view>
+
+  <view class="chart-card panel">
+    <view class="chart-header">
+      <text class="section-title">成绩趋势</text>
+      <text class="record-total">{{records.length}} 次记录</text>
+    </view>
+    <view class="chart-legend">
+      <view class="legend-item">
+        <text class="legend-line accuracy-line"></text>
+        <text>正确率</text>
+      </view>
+      <view class="legend-item">
+        <text class="legend-line time-line"></text>
+        <text>平均时间</text>
+      </view>
+    </view>
+    <canvas
+      wx:if="{{hasRecords}}"
+      id="scoreChart"
+      class="score-chart"
+      canvas-id="scoreChart"
+    ></canvas>
+    <view wx:else class="empty-chart">
+      <text class="empty-chart-icon">↗</text>
+      <text>记录成绩后，这里会显示趋势曲线</text>
+    </view>
+  </view>
+
+  <view class="history-heading">
+    <text class="section-title">历次成绩</text>
+    <text class="history-order">最新记录优先</text>
+  </view>
+
+  <view wx:if="{{hasRecords}}" class="record-list">
+    <view wx:for="{{records}}" wx:key="id" class="record-card panel">
+      <view class="record-time">{{item.dateText}}</view>
+      <view class="record-metrics">
+        <view class="record-metric">
+          <text class="metric-value">{{item.questionCount}}</text>
+          <text class="metric-label">题目数量</text>
+        </view>
+        <view class="record-metric">
+          <text class="metric-value">{{item.correctCount}}</text>
+          <text class="metric-label">正确数量</text>
+        </view>
+        <view class="record-metric">
+          <text class="metric-value">{{item.accuracy}}%</text>
+          <text class="metric-label">正确率</text>
+        </view>
+        <view class="record-metric">
+          <text class="metric-value">{{item.averageTime}}s</text>
+          <text class="metric-label">平均时间</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="empty-list">还没有历史成绩</view>
+</view>
