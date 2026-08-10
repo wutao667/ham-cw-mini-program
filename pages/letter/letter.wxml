@@ -79,6 +79,10 @@
       <text class="result-stat-value">{{accuracy}}%</text>
       <text class="result-stat-label">正确率</text>
     </view>
+    <view class="result-stat">
+      <text class="result-stat-value">{{averageTime}}s</text>
+      <text class="result-stat-label">平均时间</text>
+    </view>
   </view>
 
   <view class="quick-section">

@@ -25,6 +25,7 @@ Page({
     questionCount: 0,
     correctCount: 0,
     accuracy: 0,
+    averageTime: '0.0',
     counted: false,
   },
 
@@ -38,6 +39,7 @@ Page({
       clearTimeout(this.autoNextTimer)
       this.autoNextTimer = null
     }
+    this.startSessionTimer()
 
     let answer = CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)]
     if (CHARACTERS.length > 1 && answer === this.data.answer) {
@@ -103,6 +105,7 @@ Page({
       questionCount,
       correctCount,
       accuracy: Math.round((correctCount / questionCount) * 100),
+      averageTime: this.calculateAverageTime(correctCount),
       counted: true,
     }
 
@@ -115,6 +118,23 @@ Page({
     }
 
     return update
+  },
+
+  startSessionTimer() {
+    if (this.sessionStartTime) return
+    this.sessionStartTime = Date.now()
+    this.averageTimer = setInterval(() => this.updateAverageTime(), 100)
+  },
+
+  calculateAverageTime(correctCount = this.data.correctCount) {
+    if (!this.sessionStartTime || correctCount === 0) return '0.0'
+    const elapsedSeconds = (Date.now() - this.sessionStartTime) / 1000
+    return (elapsedSeconds / correctCount).toFixed(1)
+  },
+
+  updateAverageTime() {
+    const averageTime = this.calculateAverageTime()
+    if (averageTime !== this.data.averageTime) this.setData({ averageTime })
   },
 
   quickInput(event) {
@@ -148,6 +168,9 @@ Page({
 
   onUnload() {
     if (this.autoNextTimer) clearTimeout(this.autoNextTimer)
+    if (this.averageTimer) clearInterval(this.averageTimer)
+    this.averageTimer = null
+    this.sessionStartTime = null
     cwAudio.stop()
   },
 })
