@@ -1,27 +1,36 @@
 const cwAudio = require('../../utils/cw-audio.js')
+const { TRAINING_TYPES, SCENES, DIFFICULTIES, generateExercise } = require('../../utils/qso-generator.js')
 
 const app = getApp()
 
-const WORD_BANK = {
-  2: ['CQ', 'DE', 'DX', 'HI', 'OK', 'WX'],
-  3: ['HAM', 'RST', 'QTH', 'KEY', 'RIG', 'ANT', 'WPM'],
-  4: ['CALL', 'CODE', 'NAME', 'TONE', 'WAVE', 'COPY', 'SEND', 'TEST', 'BAND'],
-  5: ['RADIO', 'MORSE', 'POWER', 'HELLO', 'NOISE', 'SPEED', 'WORLD'],
-  6: ['SIGNAL', 'LISTEN', 'TUNING', 'KEYING', 'STATIC', 'REPEAT'],
-  7: ['ANTENNA', 'STATION', 'RECEIVE', 'CONTACT', 'MESSAGE', 'OPERATE'],
-  8: ['OPERATOR', 'WIRELESS', 'PRACTICE', 'RECEIVER', 'TRANSMIT'],
+function normalizeInput(value) {
+  return String(value || '')
+    .replace(/[\uFF01-\uFF5E]/g, character => String.fromCharCode(character.charCodeAt(0) - 0xFEE0))
+    .toUpperCase()
+    .replace(/\s+/g, ' ')
 }
 
 Page({
   data: {
+    trainingTypes: TRAINING_TYPES,
+    scenes: SCENES,
+    difficulties: DIFFICULTIES,
+    trainingType: 'phrase',
+    difficulty: 'easy',
+    sceneIndex: 0,
+    sceneLabel: SCENES[0].label,
+    difficultyNote: DIFFICULTIES[0].note,
     letterCount: 3,
-    wpm: 12,
+    wpm: 15,
     frequency: 650,
     hasQuestion: false,
     answer: '',
     inputValue: '',
     revealed: false,
     isCorrect: false,
+    isPlaying: false,
+    exerciseHint: '',
+    exerciseLabel: '',
     questionCount: 0,
     correctCount: 0,
     accuracy: 0,
@@ -33,67 +42,112 @@ Page({
     this.setData({ wpm: settings.wpm, frequency: settings.frequency })
   },
 
-  changeLetterCount(event) {
+  clearQuestion(extra = {}) {
+    this.stopPlayback()
     this.setData({
-      letterCount: Number(event.detail.value),
       hasQuestion: false,
       answer: '',
       inputValue: '',
       revealed: false,
       isCorrect: false,
       counted: false,
+      exerciseHint: '',
+      exerciseLabel: '',
+      ...extra,
     })
-    cwAudio.stop()
+  },
+
+  changeTrainingType(event) {
+    const trainingType = event.currentTarget.dataset.type
+    if (trainingType === this.data.trainingType || !TRAINING_TYPES.some(item => item.id === trainingType)) return
+    this.clearQuestion({ trainingType })
+  },
+
+  changeDifficulty(event) {
+    const difficulty = event.currentTarget.dataset.difficulty
+    const option = DIFFICULTIES.find(item => item.id === difficulty)
+    if (!option || difficulty === this.data.difficulty) return
+    this.clearQuestion({ difficulty, difficultyNote: option.note })
+  },
+
+  changeScene(event) {
+    const sceneIndex = Number(event.detail.value)
+    if (!SCENES[sceneIndex] || sceneIndex === this.data.sceneIndex) return
+    this.clearQuestion({ sceneIndex, sceneLabel: SCENES[sceneIndex].label })
+  },
+
+  changeLetterCount(event) {
+    const letterCount = Number(event.detail.value)
+    if (letterCount >= 2 && letterCount <= 8) this.clearQuestion({ letterCount })
   },
 
   randomPlay() {
-    const pool = WORD_BANK[this.data.letterCount]
-    let answer = pool[Math.floor(Math.random() * pool.length)]
-    if (pool.length > 1 && answer === this.data.answer) {
-      answer = pool[(pool.indexOf(answer) + 1) % pool.length]
-    }
-
+    this.stopPlayback()
+    const exercise = generateExercise({
+      type: this.data.trainingType,
+      scene: SCENES[this.data.sceneIndex].id,
+      difficulty: this.data.difficulty,
+      letterCount: this.data.letterCount,
+      history: this.exerciseHistory || [],
+    })
+    this.exerciseHistory = (this.exerciseHistory || []).concat({ id: exercise.id, text: exercise.text }).slice(-36)
+    const type = TRAINING_TYPES.find(item => item.id === exercise.type)
     this.setData({
       hasQuestion: true,
-      answer,
+      answer: exercise.text,
       inputValue: '',
       revealed: false,
       isCorrect: false,
       counted: false,
+      exerciseHint: exercise.hint || '',
+      exerciseLabel: [type ? type.label : '', exercise.sceneLabel || ''].filter(Boolean).join(' · '),
     })
-    setTimeout(() => this.playCurrent(), 120)
+    this.playCurrent()
   },
 
   replay() {
     if (!this.data.hasQuestion) {
-      wx.showToast({ title: '请先生成并播放单词', icon: 'none' })
+      wx.showToast({ title: '请先生成并播放题目', icon: 'none' })
       return
     }
-    this.playCurrent()
+    if (this.data.isPlaying) this.stopPlayback()
+    else this.playCurrent()
   },
 
   playCurrent() {
-    cwAudio.play(this.data.answer, this.data)
+    this.stopPlayback()
+    const duration = cwAudio.play(this.data.answer, this.data)
+    if (duration <= 0) return
+    this.setData({ isPlaying: true })
+    this.playbackTimer = setTimeout(() => {
+      this.playbackTimer = null
+      this.setData({ isPlaying: false })
+    }, duration)
+  },
+
+  stopPlayback() {
+    if (this.playbackTimer != null) clearTimeout(this.playbackTimer)
+    this.playbackTimer = null
+    cwAudio.stop()
+    if (this.data.isPlaying) this.setData({ isPlaying: false })
   },
 
   onInput(event) {
-    const inputValue = event.detail.value
-      .toUpperCase()
-      .replace(/[^A-Z]/g, '')
-      .slice(0, this.data.letterCount)
+    const inputValue = normalizeInput(event.detail.value).slice(0, 240)
 
     this.setData({
       inputValue,
-      isCorrect: this.data.revealed && inputValue === this.data.answer,
+      isCorrect: this.data.revealed && inputValue.trim() === this.data.answer,
     })
+    return inputValue
   },
 
   revealAnswer() {
     if (!this.data.hasQuestion) {
-      wx.showToast({ title: '请先生成并播放单词', icon: 'none' })
+      wx.showToast({ title: '请先生成并播放题目', icon: 'none' })
       return
     }
-    const isCorrect = this.data.inputValue === this.data.answer
+    const isCorrect = normalizeInput(this.data.inputValue).trim() === this.data.answer
     this.setData({
       revealed: true,
       isCorrect,
@@ -113,7 +167,12 @@ Page({
     }
   },
 
+  onHide() {
+    this.stopPlayback()
+  },
+
   onUnload() {
-    cwAudio.stop()
+    this.stopPlayback()
+    this.exerciseHistory = []
   },
 })

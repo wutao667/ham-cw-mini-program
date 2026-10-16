@@ -1,101 +1,90 @@
 <view class="page-shell">
   <view class="intro">
-    <text class="eyebrow">MODE 03 · WORDS</text>
+    <text class="eyebrow">MODE 03 · ON AIR</text>
     <view class="page-title">单词听写</view>
-    <view class="page-copy">设置字母数量，随机听取一个对应长度的单词。</view>
+    <view class="page-copy">从单词到通联句子，练习真实电台里的声音。</view>
   </view>
 
-  <view class="length-panel panel">
-    <view class="length-head">
-      <view>
-        <text class="length-title">单词字母数量</text>
-        <text class="length-note">可选择 2–8 个字母</text>
-      </view>
-      <view class="length-value"><text>{{letterCount}}</text> 个</view>
+  <view class="training-panel panel">
+    <view class="option-title">训练内容</view>
+    <view class="type-options">
+      <button wx:for="{{trainingTypes}}" wx:key="id"
+        class="type-option {{trainingType === item.id ? 'selected' : ''}}"
+        data-type="{{item.id}}" bindtap="changeTrainingType">{{item.label}}</button>
     </view>
-    <slider
-      min="2"
-      max="8"
-      step="1"
-      value="{{letterCount}}"
-      show-value="false"
-      activeColor="#d66b3d"
-      backgroundColor="#e4ded1"
-      block-color="#d66b3d"
-      block-size="24"
-      bindchange="changeLetterCount"
-    />
-    <view class="length-scale"><text>2</text><text>3</text><text>4</text><text>5</text><text>6</text><text>7</text><text>8</text></view>
+
+    <view wx:if="{{trainingType === 'word'}}" class="length-section">
+      <view class="length-head">
+        <text class="option-title">单词字母数量</text>
+        <text class="length-value">{{letterCount}} 个</text>
+      </view>
+      <slider min="2" max="8" step="1" value="{{letterCount}}"
+        activeColor="#d66b3d" backgroundColor="#e4ded1" block-color="#d66b3d"
+        block-size="20" bindchange="changeLetterCount" />
+      <view class="length-scale"><text>2</text><text>3</text><text>4</text><text>5</text><text>6</text><text>7</text><text>8</text></view>
+    </view>
+
+    <view wx:else>
+      <picker wx:if="{{trainingType !== 'callsign'}}" mode="selector"
+        range="{{scenes}}" range-key="label" value="{{sceneIndex}}" bindchange="changeScene">
+        <view class="scene-picker">
+          <text class="option-title">通联场景</text>
+          <text class="scene-value">{{sceneLabel}} <text class="picker-arrow">⌄</text></text>
+        </view>
+      </picker>
+      <view class="difficulty-options">
+        <button wx:for="{{difficulties}}" wx:key="id"
+          class="difficulty-option {{difficulty === item.id ? 'selected' : ''}}"
+          data-difficulty="{{item.id}}" bindtap="changeDifficulty">{{item.label}}</button>
+      </view>
+      <view class="training-note">{{difficultyNote}}</view>
+    </view>
   </view>
 
   <view class="player panel">
     <view class="button-row">
       <button class="primary-button random-button" bindtap="randomPlay">
         <text class="play-icon">▶</text>
-        <text>{{hasQuestion ? '随机播放下一个' : '生成并播放'}}</text>
+        <text>{{hasQuestion ? '生成下一题' : '生成并播放'}}</text>
       </button>
       <button class="replay-button" bindtap="replay">
-        <text class="replay-icon">↻</text>
-        <text>重播</text>
+        <text class="replay-icon">{{isPlaying ? '■' : '↻'}}</text>
+        <text>{{isPlaying ? '停止' : '重播'}}</text>
       </button>
     </view>
     <view class="play-hint">
-      <text class="status-dot {{hasQuestion ? 'active' : ''}}"></text>
-      <text>{{hasQuestion ? letterCount + ' 字母单词已播放，可重复收听' : '点击按钮随机生成单词'}}</text>
+      <text class="status-dot {{isPlaying ? 'active' : ''}}"></text>
+      <text>{{wpm}} WPM · {{isPlaying ? '正在播放，可停止后重播' : (hasQuestion ? '输入听到的内容，可重复收听' : '点击生成开始抄收')}}</text>
     </view>
   </view>
 
   <view class="answer-area">
-    <view class="box-group">
-      <text class="box-label">你的输入</text>
-      <input
-        class="word-box input-box {{revealed ? (isCorrect ? 'correct' : 'wrong') : ''}}"
-        value="{{inputValue}}"
-        maxlength="{{letterCount}}"
-        placeholder="输入单词"
-        disabled="{{!hasQuestion}}"
-        bindinput="onInput"
-      />
-      <text class="box-note">输入 {{letterCount}} 个字母</text>
+    <view class="box-label">你的输入</view>
+    <textarea class="word-input {{revealed ? (isCorrect ? 'correct' : 'wrong') : ''}}"
+      value="{{inputValue}}" maxlength="240" placeholder="输入听到的单词、呼号或句子"
+      disabled="{{!hasQuestion}}" auto-height="{{true}}" show-confirm-bar="{{false}}"
+      cursor-spacing="24" bindinput="onInput" />
+    <view class="box-note">支持字母、数字和 / ? . , = + -；词间用空格分隔</view>
+    <view class="box-label answer-label">正确答案</view>
+    <view class="reveal-box {{revealed ? (isCorrect ? 'correct' : 'wrong') : 'hidden'}}"
+      bindtap="revealAnswer" hover-class="reveal-pressed">
+      <text wx:if="{{revealed}}" class="answer-word">{{answer}}</text>
+      <view wx:else class="hidden-content"><text class="eye-icon">◉</text><text>点击核对并显示答案</text></view>
     </view>
-
-    <view class="compare-mark">{{revealed ? (isCorrect ? '=' : '≠') : 'VS'}}</view>
-
-    <view class="box-group">
-      <text class="box-label">正确答案</text>
-      <view
-        class="word-box reveal-box {{revealed ? (isCorrect ? 'correct' : 'wrong') : 'hidden'}}"
-        bindtap="revealAnswer"
-        hover-class="reveal-pressed"
-      >
-        <text wx:if="{{revealed}}" class="answer-word">{{answer}}</text>
-        <view wx:else class="hidden-content">
-          <text class="eye-icon">◉</text>
-          <text>点击显示</text>
-        </view>
-      </view>
-      <text class="box-note">点击方框揭晓答案</text>
+    <view wx:if="{{revealed}}" class="answer-detail">
+      <text class="exercise-label">{{exerciseLabel}}</text>
+      <text class="exercise-hint">{{exerciseHint}}</text>
     </view>
   </view>
 
   <view wx:if="{{revealed}}" class="feedback {{isCorrect ? 'success' : 'error'}}">
-    <text class="feedback-icon">{{isCorrect ? '✓' : '×'}}</text>
-    <text>{{isCorrect ? '听写正确，继续保持！' : '听写不一致，可以重播后再比较。'}}</text>
+    <text>{{isCorrect ? '✓ 听写正确，继续保持！' : '× 听写不一致，可重播后对照答案。'}}</text>
   </view>
 
   <view class="result-stats panel">
-    <view class="result-stat">
-      <text class="result-stat-value">{{questionCount}}</text>
-      <text class="result-stat-label">题目数量</text>
-    </view>
-    <view class="result-stat">
-      <text class="result-stat-value">{{correctCount}}</text>
-      <text class="result-stat-label">正确数量</text>
-    </view>
-    <view class="result-stat">
-      <text class="result-stat-value">{{accuracy}}%</text>
-      <text class="result-stat-label">正确率</text>
-    </view>
+    <view class="result-stat"><text class="result-stat-value">{{questionCount}}</text><text class="result-stat-label">题目数量</text></view>
+    <view class="result-stat"><text class="result-stat-value">{{correctCount}}</text><text class="result-stat-label">正确数量</text></view>
+    <view class="result-stat"><text class="result-stat-value">{{accuracy}}%</text><text class="result-stat-label">正确率</text></view>
   </view>
-
+  <view class="practice-note">题目为模拟通联内容，呼号及参数用于抄收练习。</view>
 </view>

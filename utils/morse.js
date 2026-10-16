@@ -6,6 +6,9 @@ const MORSE = {
   Y: '-.--', Z: '--..',
   0: '-----', 1: '.----', 2: '..---', 3: '...--', 4: '....-',
   5: '.....', 6: '-....', 7: '--...', 8: '---..', 9: '----.',
+  // ITU-R M.1677-1: punctuation used by callsigns and QSO exchanges.
+  '/': '-..-.', '?': '..--..', '.': '.-.-.-', ',': '--..--',
+  '=': '-...-', '+': '.-.-.', '-': '-....-',
 }
 
 const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
@@ -22,11 +25,17 @@ function toDisplay(code) {
 }
 
 function encode(text) {
-  return text
-    .toUpperCase()
+  return normalizeMorseText(text)
     .split(' ')
     .map(word => word.split('').map(char => MORSE[char] || '').filter(Boolean).join('  '))
     .join('     ')
+}
+
+function normalizeMorseText(text) {
+  // Unsupported characters are word separators; never join the words around them.
+  return String(text == null ? '' : text).toUpperCase().split('')
+    .map(char => Object.prototype.hasOwnProperty.call(MORSE, char) ? char : ' ')
+    .join('').replace(/\s+/g, ' ').trim()
 }
 
 function describe(code) {
@@ -35,4 +44,4 @@ function describe(code) {
   return `${code.length} 个信号 · ${dots} 点 ${dashes} 划`
 }
 
-module.exports = { MORSE, LETTERS, DIGITS, CHARACTERS, WORDS, toDisplay, encode, describe }
+module.exports = { MORSE, LETTERS, DIGITS, CHARACTERS, WORDS, toDisplay, encode, describe, normalizeMorseText }
