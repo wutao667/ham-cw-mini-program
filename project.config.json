@@ -9,6 +9,18 @@
       },
       {
         "type": "folder",
+        "value": ".ppt_translate"
+      },
+      {
+        "type": "folder",
+        "value": "output"
+      },
+      {
+        "type": "folder",
+        "value": "ham-recorder"
+      },
+      {
+        "type": "folder",
         "value": "docs"
       },
       {

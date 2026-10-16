@@ -9,3 +9,8 @@ scripts/source/
 # OS metadata
 .DS_Store
 Thumbs.db
+
+# Unrelated local projects and document exports (also excluded from WeChat packs)
+.ppt_translate/
+output/
+ham-recorder/
