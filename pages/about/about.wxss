@@ -66,3 +66,33 @@
   font-size: 27rpx;
   font-weight: 700;
 }
+
+.contact-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 108rpx;
+  margin: 28rpx 0 0;
+  padding: 20rpx 24rpx;
+  color: #ffffff;
+  background: #2e755d;
+  border-radius: 22rpx;
+  line-height: 1.4;
+}
+
+.contact-title {
+  font-size: 29rpx;
+  font-weight: 700;
+}
+
+.contact-note {
+  margin-top: 6rpx;
+  color: #d4e7de;
+  font-size: 21rpx;
+  font-weight: 400;
+}
+
+.contact-button-pressed {
+  opacity: 0.85;
+}

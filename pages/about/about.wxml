@@ -29,4 +29,13 @@
       <text class="info-value">wutao667@gmail.com</text>
     </view>
   </view>
+
+  <button
+    class="contact-button"
+    open-type="contact"
+    hover-class="contact-button-pressed"
+  >
+    <text class="contact-title">联系客服</text>
+    <text class="contact-note">问题反馈 · 使用咨询</text>
+  </button>
 </view>
