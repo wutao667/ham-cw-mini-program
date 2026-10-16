@@ -24,10 +24,6 @@
       <text class="info-label">更新日期</text>
       <text class="info-value">2026-10-16</text>
     </view>
-    <view class="info-row">
-      <text class="info-label">联系方式</text>
-      <text class="info-value">wutao667@gmail.com</text>
-    </view>
   </view>
 
   <button
