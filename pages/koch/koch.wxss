@@ -1,7 +1,7 @@
 .course { padding: 20rpx 24rpx; }
 .course-head { display: flex; justify-content: space-between; font-size: 25rpx; font-weight: 700; }
 .pool { color: #31755d; font-size: 22rpx; line-height: 1.5; }
-.actions, .input-actions { display: flex; gap: 12rpx; }
+.actions, .input-actions, .score-actions { display: flex; gap: 12rpx; }
 .actions { margin: 18rpx 0; }
 .actions button, .input-actions button { flex: 1; margin: 0; padding: 0; font-size: 26rpx; }
 .actions button {
@@ -26,5 +26,3 @@
 .quick-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8rpx; }
 .quick-grid .quick-key { width: 100%; margin: 0; padding: 0; line-height: 66rpx; font-size: 26rpx; background: #fffdf7; color: #173c30; border-radius: 12rpx; }
 .quick-grid .quick-key[disabled] { background: #e8e5dc; color: #8c918d; }
-.score-actions { display: flex; justify-content: center; gap: 20rpx; margin-top: 28rpx; }
-.score-actions button { width: 32%; height: 88rpx; line-height: 88rpx; margin: 0; padding: 0; border-radius: 18rpx; font-size: 25rpx; }

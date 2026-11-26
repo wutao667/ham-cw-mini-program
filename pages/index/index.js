@@ -7,7 +7,6 @@ Page({
         tag: '先认识',
         title: '字母学习',
         description: '看码形、听声音，从 A 到 Z 建立声音记忆。',
-        meta: '26 个字母 · 自由点播',
         accent: 'green',
       },
       {
@@ -16,7 +15,6 @@ Page({
         tag: '再辨音',
         title: '字母听写',
         description: '随机播放单个字母，输入答案并即时核对。',
-        meta: '随机出题 · 成绩统计',
         accent: 'orange',
       },
       {
@@ -25,7 +23,6 @@ Page({
         tag: '成组听',
         title: 'Koch 训练',
         description: '从两个字符起步，练习连续抄收。',
-        meta: '40 课 · 每轮 25 个字符',
         accent: 'green',
       },
       {
@@ -34,7 +31,6 @@ Page({
         tag: '连起来',
         title: '单词听写',
         description: '抄收常用词、呼号与通联句子，逐步练习真实通联。',
-        meta: '通联场景 · 难度分级',
         accent: 'blue',
       },
     ],

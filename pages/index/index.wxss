@@ -50,9 +50,9 @@
 .mode-card {
   position: relative;
   display: flex;
-  min-height: 230rpx;
+  min-height: 176rpx;
   margin-bottom: 24rpx;
-  padding: 34rpx;
+  padding: 24rpx 34rpx;
   box-sizing: border-box;
   overflow: hidden;
   transition: transform 120ms ease;
@@ -95,7 +95,6 @@
 
 .arrow { color: #9ba69f; font-weight: 400; }
 .mode-description { margin-top: 14rpx; color: #627068; font-size: 26rpx; line-height: 1.55; }
-.mode-meta { margin-top: 20rpx; color: #9a7a69; font-size: 22rpx; }
 
 .home-actions {
   display: flex;

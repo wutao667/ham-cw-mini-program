@@ -46,7 +46,7 @@
       disabled="{{!item.enabled || !answer || submitted || input.length >= 25}}" bindtap="enterCharacter">{{item.value}}</button>
   </view>
   <view class="score-actions">
-    <button class="primary-button" bindtap="recordScore">记录成绩</button>
-    <button class="secondary-button" bindtap="openHistory">历史成绩</button>
+    <button class="score-button primary-button" bindtap="recordScore">记录成绩</button>
+    <button class="score-button secondary-button" bindtap="openHistory">历史成绩</button>
   </view>
 </view>

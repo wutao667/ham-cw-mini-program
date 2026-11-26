@@ -25,6 +25,7 @@
 
 .random-button,
 .replay-button {
+  flex: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -325,33 +326,11 @@
 }
 
 .score-actions {
-  display: flex;
-  justify-content: center;
-  margin-top: 28rpx;
+  padding: 0 22rpx;
 }
 
-.score-button {
-  display: flex;
+.score-actions .score-button + .score-button {
   flex: none;
-  align-items: center;
-  justify-content: center;
-  width: 32%;
-  height: 88rpx;
-  margin: 0;
-  padding: 0;
-  border-radius: 18rpx;
-  font-size: 25rpx;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.record-score-button {
-  color: #ffffff;
-  background: #d66b3d;
-}
-
-.history-score-button {
-  margin-left: 20rpx;
-  color: #173c30;
-  background: #e0eee7;
+  width: 158rpx;
+  margin-left: 14rpx;
 }

@@ -28,7 +28,6 @@
         <text class="mode-tag">{{item.tag}}</text>
         <view class="mode-title">{{item.title}} <text class="arrow">→</text></view>
         <view class="mode-description">{{item.description}}</view>
-        <view class="mode-meta">{{item.meta}}</view>
       </view>
     </view>
   </view>

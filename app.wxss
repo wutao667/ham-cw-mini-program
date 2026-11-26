@@ -13,6 +13,26 @@ button::after {
   border: none;
 }
 
+.score-actions {
+  display: flex;
+  margin-top: 28rpx;
+}
+
+.score-actions .score-button {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  height: 88rpx;
+  margin: 0;
+  padding: 0;
+  border-radius: 18rpx;
+  font-size: 25rpx;
+  font-weight: 700;
+  line-height: 1;
+}
+
 .page-shell {
   padding: 32rpx 28rpx calc(48rpx + env(safe-area-inset-bottom));
 }
