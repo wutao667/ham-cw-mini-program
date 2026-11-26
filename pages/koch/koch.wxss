@@ -4,7 +4,14 @@
 .actions, .input-actions { display: flex; gap: 12rpx; }
 .actions { margin: 18rpx 0; }
 .actions button, .input-actions button { flex: 1; margin: 0; padding: 0; font-size: 26rpx; }
-.actions button { height: 133rpx; line-height: 133rpx; }
+.actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 88rpx;
+  line-height: 1.2;
+}
 .comparison { display: flex; align-items: center; gap: 12rpx; }
 .copy-box { flex: 1; align-self: stretch; min-width: 0; padding: 16rpx 12rpx; text-align: center; }
 .box-title { font-size: 24rpx; font-weight: 700; margin-bottom: 10rpx; }
