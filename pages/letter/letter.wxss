@@ -326,11 +326,5 @@
 }
 
 .score-actions {
-  padding: 0 22rpx;
-}
-
-.score-actions .score-button + .score-button {
-  flex: none;
-  width: 158rpx;
-  margin-left: 14rpx;
+  gap: 12rpx;
 }
