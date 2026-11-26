@@ -16,6 +16,7 @@ Page({
   data: {
     wpm: 15,
     frequency: 650,
+    kochGroupGap: 1,
     presets: [5, 10, 20, 30],
     unitMs: 80,
     dashMs: 240,
@@ -26,14 +27,22 @@ Page({
 
   onLoad() {
     const settings = app.globalData.cwSettings
+    this.setData({ kochGroupGap: settings.kochGroupGap })
     this.applySettings(settings.wpm, settings.frequency, false)
   },
 
   applySettings(wpm, frequency, shouldSave = true) {
     const timing = timingFor(wpm)
     this.setData({ wpm, frequency, ...timing })
-    app.globalData.cwSettings = { wpm, frequency }
-    if (shouldSave) wx.setStorageSync('cwSettings', { wpm, frequency })
+    app.globalData.cwSettings = { ...app.globalData.cwSettings, wpm, frequency }
+    if (shouldSave) wx.setStorageSync('cwSettings', app.globalData.cwSettings)
+  },
+
+  changeKochGroupGap(event) {
+    const kochGroupGap = Number(event.detail.value)
+    this.setData({ kochGroupGap })
+    app.globalData.cwSettings.kochGroupGap = kochGroupGap
+    wx.setStorageSync('cwSettings', app.globalData.cwSettings)
   },
 
   changeWpm(event) {

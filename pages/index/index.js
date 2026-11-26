@@ -20,8 +20,17 @@ Page({
         accent: 'orange',
       },
       {
-        url: '/pages/word/word',
+        url: '/pages/koch/koch',
         number: '03',
+        tag: '成组听',
+        title: 'Koch 训练',
+        description: '从两个字符起步，练习连续抄收。',
+        meta: '40 课 · 每轮 25 个字符',
+        accent: 'green',
+      },
+      {
+        url: '/pages/word/word',
+        number: '04',
         tag: '连起来',
         title: '单词听写',
         description: '抄收常用词、呼号与通联句子，逐步练习真实通联。',

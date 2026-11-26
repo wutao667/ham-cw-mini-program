@@ -1,0 +1,57 @@
+<view class="page-shell">
+  <view class="panel course">
+    <view class="course-head"><text>课程进度</text><text>第 {{lesson}} / 40 课 · {{lesson + 1}} 字符</text></view>
+    <slider min="1" max="40" step="1" value="{{lesson}}" bindchange="changeLesson" activeColor="#31755d" />
+    <view class="pool">{{poolLabel}}</view>
+  </view>
+
+  <view class="actions">
+    <button class="primary-button" bindtap="nextRound">下一轮</button>
+    <button class="secondary-button" bindtap="replay" disabled="{{!answer}}">重播</button>
+  </view>
+
+  <view class="comparison">
+    <view class="panel copy-box">
+      <view class="box-title">你的输入 <text class="muted">{{input.length}} / 25</text></view>
+      <view class="copy-group" wx:for="{{inputGroups}}" wx:for-item="group" wx:key="index">
+        <text wx:for="{{group.characters}}" wx:key="index" class="character {{item.wrong ? 'wrong' : ''}}">{{item.value}}</text>
+      </view>
+      <view class="input-actions">
+        <button class="secondary-button" bindtap="backspace" disabled="{{!input.length || submitted}}" aria-label="回删">←</button>
+        <button class="primary-button" bindtap="submit" disabled="{{input.length !== 25 || submitted}}">提交</button>
+      </view>
+    </view>
+    <text class="muted">VS</text>
+    <view class="panel copy-box">
+      <view class="box-title">正确答案</view>
+      <block wx:if="{{submitted}}">
+        <view class="copy-group" wx:for="{{answerGroups}}" wx:for-item="group" wx:key="index">
+          <text wx:for="{{group.characters}}" wx:key="index" class="character">{{item.value}}</text>
+        </view>
+      </block>
+      <view wx:else class="answer-placeholder muted">提交后显示</view>
+    </view>
+  </view>
+
+  <view class="result-stats panel">
+    <view class="result-stat"><text class="result-stat-value">{{rounds}}</text><text class="result-stat-label">轮数</text></view>
+    <view class="result-stat"><text class="result-stat-value">{{total}}</text><text class="result-stat-label">字符数</text></view>
+    <view class="result-stat"><text class="result-stat-value">{{correct}}</text><text class="result-stat-label">字符正确数</text></view>
+    <view class="result-stat"><text class="result-stat-value">{{accuracy}}%</text><text class="result-stat-label">字符正确率</text></view>
+  </view>
+
+  <view class="section-title">快捷输入</view>
+  <view class="quick-grid">
+    <button wx:for="{{keys}}" wx:key="value" class="quick-key" data-value="{{item.value}}"
+      disabled="{{!item.enabled || !answer || submitted || input.length >= 25}}" bindtap="enterCharacter">{{item.value}}</button>
+  </view>
+  <button class="secondary-button history-button" bindtap="toggleHistory">{{showHistory ? '收起历史成绩' : '历史成绩'}}</button>
+  <view wx:if="{{showHistory}}">
+    <view wx:if="{{!history.length}}" class="history-row muted">暂无历史成绩</view>
+    <view wx:for="{{history}}" wx:key="id" class="panel history-row">
+      <view>{{item.date}}</view>
+      <view>第 {{item.lesson}} 课 · {{item.characterCount}} 字符 · {{item.wpm}} WPM</view>
+      <view>答对 {{item.correct}} / {{item.total}} · {{item.accuracy}}%</view>
+    </view>
+  </view>
+</view>

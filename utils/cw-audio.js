@@ -51,6 +51,7 @@ function play(text, options = {}) {
   const wpm = positiveNumber(options.wpm, 15)
   const frequency = positiveNumber(options.frequency, 650)
   const unit = 1.2 / wpm
+  const groupGap = positiveNumber(options.groupGapSeconds, unit * 7)
   const edge = Math.min(0.005, unit / 4)
   const startTime = context.currentTime
   let cursor = startTime + 0.08
@@ -70,7 +71,7 @@ function play(text, options = {}) {
 
   const words = content.split(' ')
   words.forEach((word, wordIndex) => {
-    if (wordIndex > 0) cursor += unit * 7
+    if (wordIndex > 0) cursor += groupGap
     word.split('').forEach((char, charIndex) => {
       if (charIndex > 0) cursor += unit * 3
       MORSE[char].split('').forEach((symbol, symbolIndex) => {

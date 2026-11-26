@@ -2,7 +2,7 @@
   <view class="intro">
     <text class="eyebrow">CW PLAYBACK</text>
     <view class="page-title">播放设置</view>
-    <view class="page-copy">这里的设置会应用到字母学习、字母听写和单词听写。</view>
+    <view class="page-copy">调整 CW 播放速度、音调与 Koch 组间停顿。</view>
   </view>
 
   <view class="settings-card panel">
@@ -35,6 +35,14 @@
     </view>
     <slider min="400" max="900" step="50" value="{{frequency}}" activeColor="#31755d" backgroundColor="#e5ded2" block-color="#31755d" block-size="24" bindchanging="changeFrequency" bindchange="changeFrequency" />
     <view class="frequency-scale"><text>低 · 400 Hz</text><text>900 Hz · 高</text></view>
+  </view>
+
+  <view class="settings-card panel">
+    <view class="setting-title-row">
+      <text class="setting-title">Koch 组间停顿</text>
+      <view class="setting-value"><text>{{kochGroupGap}}</text> 秒</view>
+    </view>
+    <slider min="0.5" max="5" step="0.1" value="{{kochGroupGap}}" bindchange="changeKochGroupGap" />
   </view>
 
   <view class="standard-card panel">
