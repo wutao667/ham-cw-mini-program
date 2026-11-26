@@ -1,8 +1,7 @@
-const { CHARACTERS } = require('../../utils/morse.js')
+const { PRACTICE_CHARACTERS } = require('../../utils/morse.js')
 const cwAudio = require('../../utils/cw-audio.js')
 const { addKochScore } = require('../../utils/score-history.js')
 
-const KEYS = CHARACTERS.concat(['.', ',', '?', '/', '='])
 const ORDER = 'KMURESNAPTLWI.JZ=FOY,VGCQ?HBDX/1234567890'
 const ROUND_SIZE = 25
 const LESSON_KEY = 'kochLesson'
@@ -44,7 +43,7 @@ Page({
     this.setData({
       lesson,
       poolLabel: pool.split('').join(' '),
-      keys: KEYS.map(value => ({ value, enabled: pool.includes(value) })),
+      keys: PRACTICE_CHARACTERS.map(value => ({ value, enabled: pool.includes(value) })),
       answer: '',
       input: '',
       inputGroups: groupCharacters(''),

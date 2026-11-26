@@ -1,4 +1,4 @@
-const { CHARACTERS, MORSE, toDisplay } = require('../../utils/morse.js')
+const { PRACTICE_CHARACTERS, MORSE, toDisplay } = require('../../utils/morse.js')
 const { addLetterScore } = require('../../utils/score-history.js')
 const { appendSelection, chooseSoftRandom } = require('../../utils/soft-random.js')
 const cwAudio = require('../../utils/cw-audio.js')
@@ -7,7 +7,7 @@ const app = getApp()
 const toAnswerDisplay = code => (
   toDisplay(code).replace(/—/g, '–').split('').join('\u00A0')
 )
-const QUICK_CHARACTERS = CHARACTERS.map(character => ({
+const QUICK_CHARACTERS = PRACTICE_CHARACTERS.map(character => ({
   character,
   errorCount: 0,
 }))
@@ -43,7 +43,7 @@ Page({
     }
     this.startSessionTimer()
 
-    const answer = chooseSoftRandom(CHARACTERS, this.questionHistory || [])
+    const answer = chooseSoftRandom(PRACTICE_CHARACTERS, this.questionHistory || [])
     this.questionHistory = appendSelection(this.questionHistory || [], answer)
 
     this.setData({
@@ -74,7 +74,8 @@ Page({
   onInput(event) {
     const inputValue = event.detail.value
       .toUpperCase()
-      .replace(/[^A-Z0-9]/g, '')
+      .replace(/[．，？／＝。]/g, character => character === '。' ? '.' : String.fromCharCode(character.charCodeAt(0) - 0xFEE0))
+      .split('').filter(character => PRACTICE_CHARACTERS.includes(character)).join('')
       .slice(0, 1)
 
     this.setData({

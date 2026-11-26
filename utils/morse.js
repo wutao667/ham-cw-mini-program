@@ -14,6 +14,7 @@ const MORSE = {
 const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 const DIGITS = '0123456789'.split('')
 const CHARACTERS = LETTERS.concat(DIGITS)
+const PRACTICE_CHARACTERS = CHARACTERS.concat(['.', ',', '?', '/', '='])
 
 const WORDS = [
   'CQ', 'DE', 'HAM', 'RADIO', 'CODE', 'MORSE', 'CALL', 'SIGNAL',
@@ -44,4 +45,4 @@ function describe(code) {
   return `${code.length} 个信号 · ${dots} 点 ${dashes} 划`
 }
 
-module.exports = { MORSE, LETTERS, DIGITS, CHARACTERS, WORDS, toDisplay, encode, describe, normalizeMorseText }
+module.exports = { MORSE, LETTERS, DIGITS, CHARACTERS, PRACTICE_CHARACTERS, WORDS, toDisplay, encode, describe, normalizeMorseText }

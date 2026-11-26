@@ -13,10 +13,10 @@
   >
     <view class="focus-main">
       <view class="character-column">
-        <text class="focus-label">当前字母</text>
+        <text class="focus-label">当前字符</text>
         <text class="focus-letter">{{current.letter}}</text>
-        <view class="morse-code">{{current.code}}</view>
-        <view class="syllable-word">{{current.syllable}}</view>
+        <view class="morse-code {{current.syllable ? '' : 'compact-code'}}">{{current.code}}</view>
+        <view wx:if="{{current.syllable}}" class="syllable-word">{{current.syllable}}</view>
       </view>
       <view class="memory-column">
         <view wx:if="{{current.isLetter}}" class="visual-viewport">
@@ -34,7 +34,7 @@
     </view>
   </view>
 
-  <view class="section-title">字母与数字</view>
+  <view class="section-title">字母、数字与标点</view>
   <view class="letter-grid">
     <view
       wx:for="{{characters}}"

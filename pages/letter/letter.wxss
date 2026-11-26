@@ -283,7 +283,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 88rpx;
+  height: 70.4rpx;
   color: #213029;
   background: #fffdf7;
   border: 2rpx solid #e4ded1;

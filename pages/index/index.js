@@ -14,7 +14,7 @@ Page({
         number: '02',
         tag: '再辨音',
         title: '字母听写',
-        description: '随机播放单个字母，输入答案并即时核对。',
+        description: '随机播放字母、数字或标点，输入答案并即时核对。',
         accent: 'orange',
       },
       {

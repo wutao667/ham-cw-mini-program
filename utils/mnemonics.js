@@ -38,7 +38,7 @@ function getMnemonic(character) {
   const isLetter = Boolean(SYLLABIC_MNEMONICS[character])
   return {
     isLetter,
-    syllable: isLetter ? SYLLABIC_MNEMONICS[character] : digitMnemonic(character),
+    syllable: isLetter ? SYLLABIC_MNEMONICS[character] : (/^[0-9]$/.test(character) ? digitMnemonic(character) : ''),
     visualSrc: isLetter ? `/assets/mnemonics-svg/${character}.svg` : '',
   }
 }

@@ -2,7 +2,7 @@
   <view class="intro">
     <text class="eyebrow">MODE 02 · COPY</text>
     <view class="page-title">字母听写</view>
-    <view class="page-copy">随机听一个字母或数字，输入你的判断，再点击答案框核对。</view>
+    <view class="page-copy">随机听一个字母、数字或标点，输入后点击答案框核对。</view>
   </view>
 
   <view class="player panel">
@@ -18,7 +18,7 @@
     </view>
     <view class="play-hint">
       <text class="status-dot {{hasQuestion ? 'active' : ''}}"></text>
-      <text>{{hasQuestion ? '题目已播放，可以重复收听' : '题库包含 A–Z 和 0–9'}}</text>
+      <text>{{hasQuestion ? '题目已播放，可以重复收听' : '题库包含 A–Z、0–9 和 5 个标点'}}</text>
     </view>
   </view>
 
@@ -36,7 +36,7 @@
         />
         <text wx:if="{{inputValue}}" class="input-code">{{inputCode}}</text>
       </view>
-      <text class="box-note">输入一个字母或数字</text>
+      <text class="box-note">输入一个字符</text>
     </view>
 
     <view class="compare-mark">{{revealed ? (isCorrect ? '=' : '≠') : 'VS'}}</view>

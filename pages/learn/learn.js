@@ -1,4 +1,4 @@
-const { MORSE, CHARACTERS, toDisplay } = require('../../utils/morse.js')
+const { MORSE, PRACTICE_CHARACTERS, toDisplay } = require('../../utils/morse.js')
 const { getMnemonic } = require('../../utils/mnemonics.js')
 const cwAudio = require('../../utils/cw-audio.js')
 
@@ -7,7 +7,7 @@ const toSpacedDisplay = code => toDisplay(code).split('').join('\u00A0')
 
 Page({
   data: {
-    characters: CHARACTERS.map(character => ({
+    characters: PRACTICE_CHARACTERS.map(character => ({
       character,
       code: toSpacedDisplay(MORSE[character]),
     })),
@@ -35,7 +35,7 @@ Page({
   },
 
   showLetter(index, shouldPlay) {
-    const letter = CHARACTERS[index]
+    const letter = PRACTICE_CHARACTERS[index]
     const code = MORSE[letter]
     const mnemonic = getMnemonic(letter)
     this.setData({
