@@ -39,7 +39,7 @@ Page({
 
   onShow() {
     const settings = app.globalData.cwSettings
-    this.setData({ wpm: settings.wpm, frequency: settings.frequency })
+    this.setData({ wpm: settings.wpm, effectiveWpm: settings.effectiveWpm || settings.wpm, frequency: settings.frequency })
   },
 
   clearQuestion(extra = {}) {

@@ -36,6 +36,15 @@ function positiveNumber(value, fallback) {
   return Number.isFinite(number) && number > 0 ? number : fallback
 }
 
+function timingFor(wpm, effectiveWpm) {
+  const speed = positiveNumber(wpm, 15)
+  const effective = Math.min(speed, Math.max(5, positiveNumber(effectiveWpm, speed)))
+  const unit = 1.2 / speed
+  // PARIS has 31 character units and 19 spacing units.
+  const spacingUnit = (60 / effective - 31 * unit) / 19
+  return { unit, characterGap: 3 * spacingUnit, wordGap: 7 * spacingUnit }
+}
+
 function play(text, options = {}) {
   stop()
   const content = normalizeMorseText(text)
@@ -48,10 +57,8 @@ function play(text, options = {}) {
 
   if (context.state === 'suspended' && context.resume) context.resume()
 
-  const wpm = positiveNumber(options.wpm, 15)
   const frequency = positiveNumber(options.frequency, 650)
-  const unit = 1.2 / wpm
-  const groupGap = positiveNumber(options.groupGapSeconds, unit * 7)
+  const { unit, characterGap, wordGap } = timingFor(options.wpm, options.effectiveWpm)
   const edge = Math.min(0.005, unit / 4)
   const startTime = context.currentTime
   let cursor = startTime + 0.08
@@ -71,9 +78,9 @@ function play(text, options = {}) {
 
   const words = content.split(' ')
   words.forEach((word, wordIndex) => {
-    if (wordIndex > 0) cursor += groupGap
+    if (wordIndex > 0) cursor += wordGap
     word.split('').forEach((char, charIndex) => {
-      if (charIndex > 0) cursor += unit * 3
+      if (charIndex > 0) cursor += characterGap
       MORSE[char].split('').forEach((symbol, symbolIndex) => {
         if (symbolIndex > 0) cursor += unit
         const duration = symbol === '.' ? unit : unit * 3
@@ -100,4 +107,4 @@ function play(text, options = {}) {
   return durationMs
 }
 
-module.exports = { play, stop }
+module.exports = { play, stop, timingFor }

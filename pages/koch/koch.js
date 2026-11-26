@@ -68,8 +68,8 @@ Page({
   nextRound() {
     const pool = ORDER.slice(0, this.data.lesson + 1)
     const answer = Array.from({ length: ROUND_SIZE }, () => pool[Math.floor(Math.random() * pool.length)]).join('')
-    const { wpm, frequency, kochGroupGap } = getApp().globalData.cwSettings
-    this.roundAudio = { wpm, frequency, groupGapSeconds: kochGroupGap || 1 }
+    const { wpm, frequency, effectiveWpm = wpm } = getApp().globalData.cwSettings
+    this.roundAudio = { wpm, frequency, effectiveWpm }
     this.setData({
       answer,
       input: '',
@@ -102,11 +102,12 @@ Page({
     const { answer, input, submitted } = this.data
     if (submitted || !answer || input.length !== ROUND_SIZE) return
     const roundCorrect = input.split('').filter((value, index) => value === answer[index]).length
-    const sameSpeed = this.scoreWpm === this.roundAudio.wpm
+    const sameSpeed = this.scoreWpm === this.roundAudio.wpm && this.scoreEffectiveWpm === this.roundAudio.effectiveWpm
     const rounds = sameSpeed ? this.data.rounds : 0
     const total = (sameSpeed ? this.data.total : 0) + ROUND_SIZE
     const correct = (sameSpeed ? this.data.correct : 0) + roundCorrect
     this.scoreWpm = this.roundAudio.wpm
+    this.scoreEffectiveWpm = this.roundAudio.effectiveWpm
     cwAudio.stop()
     this.setData({
       submitted: true,
@@ -126,7 +127,10 @@ Page({
       return
     }
     try {
-      addKochScore({ recordedAt: Date.now(), lesson, rounds, total, correct, accuracy, wpm: this.scoreWpm })
+      addKochScore({
+        recordedAt: Date.now(), lesson, rounds, total, correct, accuracy,
+        wpm: this.scoreWpm, effectiveWpm: this.scoreEffectiveWpm,
+      })
       wx.showToast({ title: '成绩已记录', icon: 'success' })
     } catch (error) {
       wx.showToast({ title: '历史成绩保存失败，请重试', icon: 'none' })

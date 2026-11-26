@@ -91,6 +91,17 @@ const pair = pulses(letters.gains[0])
 close(pair[1].start - pair[0].end, 0.24)
 letters.audio.stop()
 
+const farnsworth = harness()
+const timing = farnsworth.audio.timingFor(20, 10)
+close(timing.unit, 0.06)
+close(31 * timing.unit + 4 * timing.characterGap + timing.wordGap, 6)
+farnsworth.audio.play('EE E', { wpm: 20, effectiveWpm: 10 })
+const spaced = pulses(farnsworth.gains[0])
+close(spaced[0].end - spaced[0].start, timing.unit)
+close(spaced[1].start - spaced[0].end, timing.characterGap)
+close(spaced[2].start - spaced[1].end, timing.wordGap)
+farnsworth.audio.stop()
+
 // Published ITU mappings, verified independently of the encoder's lookup table.
 const punctuation = { '/': '-..-.', '?': '..--..', '.': '.-.-.-', ',': '--..--', '=': '-...-', '+': '.-.-.', '-': '-....-' }
 Object.entries(punctuation).forEach(([character, expected]) => {

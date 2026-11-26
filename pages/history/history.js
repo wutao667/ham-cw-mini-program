@@ -82,7 +82,9 @@ Page({
         accuracy: Number(record.accuracy) || 0,
         averageTimeValue: Number(record.averageTime) || 0,
         averageTime: (Number(record.averageTime) || 0).toFixed(1),
-        wpmText: Number(record.wpm) > 0 ? String(Number(record.wpm)) : '—',
+        wpmText: Number(record.wpm) > 0
+          ? [Number(record.wpm), ...(record.effectiveWpm && record.effectiveWpm !== record.wpm ? [record.effectiveWpm] : [])].join('/')
+          : '—',
         dateText: formatDate(record.recordedAt),
         axisTime: formatAxisTime(record.recordedAt),
       }))

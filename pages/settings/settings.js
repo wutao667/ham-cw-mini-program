@@ -2,21 +2,11 @@ const cwAudio = require('../../utils/cw-audio.js')
 
 const app = getApp()
 
-function timingFor(wpm) {
-  const unitMs = Math.round(1200 / wpm)
-  return {
-    unitMs,
-    dashMs: unitMs * 3,
-    characterGapMs: unitMs * 3,
-    wordGapMs: unitMs * 7,
-  }
-}
-
 Page({
   data: {
     wpm: 15,
     frequency: 650,
-    kochGroupGap: 1,
+    effectiveWpm: 15,
     presets: [5, 10, 20, 30],
     unitMs: 80,
     dashMs: 240,
@@ -27,38 +17,46 @@ Page({
 
   onLoad() {
     const settings = app.globalData.cwSettings
-    this.setData({ kochGroupGap: settings.kochGroupGap })
-    this.applySettings(settings.wpm, settings.frequency, false)
+    this.applySettings(settings.wpm, settings.frequency, settings.effectiveWpm || settings.wpm, false)
   },
 
-  applySettings(wpm, frequency, shouldSave = true) {
-    const timing = timingFor(wpm)
-    this.setData({ wpm, frequency, ...timing })
-    app.globalData.cwSettings = { ...app.globalData.cwSettings, wpm, frequency }
+  applySettings(wpm, frequency, requestedEffectiveWpm, shouldSave = true) {
+    const effectiveWpm = Math.min(wpm, Math.max(5, requestedEffectiveWpm))
+    const { unit, characterGap, wordGap } = cwAudio.timingFor(wpm, effectiveWpm)
+    this.setData({
+      wpm, frequency, effectiveWpm,
+      unitMs: Math.round(unit * 1000),
+      dashMs: Math.round(unit * 3000),
+      characterGapMs: Math.round(characterGap * 1000),
+      wordGapMs: Math.round(wordGap * 1000),
+    })
+    app.globalData.cwSettings = { wpm, frequency, effectiveWpm }
     if (shouldSave) wx.setStorageSync('cwSettings', app.globalData.cwSettings)
   },
 
-  changeKochGroupGap(event) {
-    const kochGroupGap = Number(event.detail.value)
-    this.setData({ kochGroupGap })
-    app.globalData.cwSettings.kochGroupGap = kochGroupGap
-    wx.setStorageSync('cwSettings', app.globalData.cwSettings)
+  changeEffectiveWpm(event) {
+    this.applySettings(this.data.wpm, this.data.frequency, Number(event.detail.value))
+  },
+
+  changeCharacterSpeed(wpm) {
+    const effective = this.data.effectiveWpm === this.data.wpm ? wpm : this.data.effectiveWpm
+    this.applySettings(wpm, this.data.frequency, effective)
   },
 
   changeWpm(event) {
-    this.applySettings(Number(event.detail.value), this.data.frequency)
+    this.changeCharacterSpeed(Number(event.detail.value))
   },
 
   changeFrequency(event) {
-    this.applySettings(this.data.wpm, Number(event.detail.value))
+    this.applySettings(this.data.wpm, Number(event.detail.value), this.data.effectiveWpm)
   },
 
   choosePreset(event) {
-    this.applySettings(Number(event.currentTarget.dataset.wpm), this.data.frequency)
+    this.changeCharacterSpeed(Number(event.currentTarget.dataset.wpm))
   },
 
   preview() {
-    const duration = cwAudio.play('CQ', this.data)
+    const duration = cwAudio.play('CQ CQ', this.data)
     this.setData({ isPreviewing: true })
     setTimeout(() => this.setData({ isPreviewing: false }), duration)
   },

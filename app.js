@@ -13,7 +13,6 @@ App({
     cwSettings: {
       wpm: 15,
       frequency: 650,
-      kochGroupGap: 1,
     },
   },
 })

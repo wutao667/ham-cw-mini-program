@@ -54,7 +54,7 @@
     </view>
     <view class="play-hint">
       <text class="status-dot {{isPlaying ? 'active' : ''}}"></text>
-      <text>{{wpm}} WPM · {{isPlaying ? '正在播放，可停止后重播' : (hasQuestion ? '输入听到的内容，可重复收听' : '点击生成开始抄收')}}</text>
+      <text>{{wpm}}{{effectiveWpm === wpm ? '' : '/' + effectiveWpm}} WPM · {{isPlaying ? '正在播放，可停止后重播' : (hasQuestion ? '输入听到的内容，可重复收听' : '点击生成开始抄收')}}</text>
     </view>
   </view>
 
