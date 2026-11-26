@@ -6,6 +6,11 @@ const ORDER = 'KMURESNAPTLWI.JZ=FOY,VGCQ?HBDX/1234567890'
 const ROUND_SIZE = 25
 const LESSON_KEY = 'kochLesson'
 
+function lessonKeys(lesson) {
+  const pool = ORDER.slice(0, lesson + 1)
+  return PRACTICE_CHARACTERS.map(value => ({ value, enabled: pool.includes(value) }))
+}
+
 function groupCharacters(characters, answer) {
   return Array.from({ length: 5 }, (_, group) => (
     { index: group, characters: Array.from({ length: 5 }, (_, offset) => {
@@ -19,8 +24,8 @@ function groupCharacters(characters, answer) {
 Page({
   data: {
     lesson: 1,
-    keys: [],
-    poolLabel: '',
+    keys: lessonKeys(1),
+    previewLesson: 0,
     answer: '',
     input: '',
     inputGroups: groupCharacters(''),
@@ -39,11 +44,10 @@ Page({
 
   selectLesson(lesson) {
     cwAudio.stop()
-    const pool = ORDER.slice(0, lesson + 1)
     this.setData({
       lesson,
-      poolLabel: pool.split('').join(' '),
-      keys: PRACTICE_CHARACTERS.map(value => ({ value, enabled: pool.includes(value) })),
+      previewLesson: 0,
+      keys: lessonKeys(lesson),
       answer: '',
       input: '',
       inputGroups: groupCharacters(''),
@@ -58,8 +62,24 @@ Page({
   },
 
   changeLesson(event) {
-    const lesson = Number(event.detail.value)
-    if (lesson === this.data.lesson) return
+    this.applyLesson(Number(event.detail.value))
+  },
+
+  previewLessonChange(event) {
+    const previewLesson = Number(event.detail.value)
+    this.setData({ previewLesson, keys: lessonKeys(previewLesson) })
+  },
+
+  stepLesson(event) {
+    const step = Number(event.currentTarget.dataset.step)
+    this.applyLesson(Math.min(40, Math.max(1, this.data.lesson + step)))
+  },
+
+  applyLesson(lesson) {
+    if (lesson === this.data.lesson) {
+      this.setData({ previewLesson: 0, keys: lessonKeys(lesson) })
+      return
+    }
     this.selectLesson(lesson)
     wx.setStorageSync(LESSON_KEY, lesson)
   },
@@ -86,7 +106,12 @@ Page({
   enterCharacter(event) {
     const { answer, input, lesson, submitted } = this.data
     const { value } = event.currentTarget.dataset
-    if (!answer || submitted || input.length >= ROUND_SIZE || !ORDER.slice(0, lesson + 1).includes(value)) return
+    if (!ORDER.slice(0, lesson + 1).includes(value)) return
+    if (!answer) {
+      wx.showToast({ title: '请先点击下一轮', icon: 'none' })
+      return
+    }
+    if (submitted || input.length >= ROUND_SIZE) return
     const nextInput = input + value
     this.setData({ input: nextInput, inputGroups: groupCharacters(nextInput) })
   },

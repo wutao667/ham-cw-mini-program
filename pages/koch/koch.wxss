@@ -1,6 +1,7 @@
 .course { padding: 20rpx 24rpx; }
 .course-head { display: flex; justify-content: space-between; font-size: 25rpx; font-weight: 700; }
-.pool { color: #31755d; font-size: 22rpx; line-height: 1.5; }
+.course-steps { display: flex; justify-content: space-between; }
+.course-steps button { width: 64rpx; height: 48rpx; margin: 0; padding: 0; font-size: 28rpx; line-height: 48rpx; }
 .actions, .input-actions, .score-actions { display: flex; gap: 12rpx; }
 .actions { margin: 18rpx 0; }
 .actions button, .input-actions button { flex: 1; margin: 0; padding: 0; font-size: 26rpx; }

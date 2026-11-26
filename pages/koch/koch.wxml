@@ -1,8 +1,11 @@
 <view class="page-shell">
   <view class="panel course">
-    <view class="course-head"><text>课程进度</text><text>第 {{lesson}} / 40 课 · {{lesson + 1}} 字符</text></view>
-    <slider min="1" max="40" step="1" value="{{lesson}}" bindchange="changeLesson" activeColor="#31755d" />
-    <view class="pool">{{poolLabel}}</view>
+    <view class="course-head"><text>课程进度</text><text>第 {{previewLesson || lesson}} / 40 课 · {{(previewLesson || lesson) + 1}} 字符</text></view>
+    <slider min="1" max="40" step="1" value="{{lesson}}" bindchanging="previewLessonChange" bindchange="changeLesson" activeColor="#31755d" />
+    <view class="course-steps">
+      <button class="secondary-button" data-step="-1" bindtap="stepLesson" disabled="{{lesson === 1}}" aria-label="上一课">−</button>
+      <button class="secondary-button" data-step="1" bindtap="stepLesson" disabled="{{lesson === 40}}" aria-label="下一课">+</button>
+    </view>
   </view>
 
   <view class="actions">
@@ -43,7 +46,7 @@
   <view class="section-title">快捷输入</view>
   <view class="quick-grid">
     <button wx:for="{{keys}}" wx:key="value" class="quick-key" data-value="{{item.value}}"
-      disabled="{{!item.enabled || !answer || submitted || input.length >= 25}}" bindtap="enterCharacter">{{item.value}}</button>
+      disabled="{{!item.enabled}}" bindtap="enterCharacter">{{item.value}}</button>
   </view>
   <view class="score-actions">
     <button class="score-button primary-button" bindtap="recordScore">记录成绩</button>
