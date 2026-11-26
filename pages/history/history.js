@@ -1,6 +1,8 @@
 const {
   getLetterScoreHistory,
   setLetterScoreTrendInclusion,
+  getKochScoreHistory,
+  setKochScoreTrendInclusion,
 } = require('../../utils/score-history.js')
 
 const pad = value => String(value).padStart(2, '0')
@@ -48,10 +50,18 @@ function createRelativeScale(values, options) {
 
 Page({
   data: {
+    isKoch: false,
     records: [],
     hasRecords: false,
     hasChartRecords: false,
     trendRecordCount: 0,
+  },
+
+  onLoad(options) {
+    if (options.mode === 'koch') {
+      this.setData({ isKoch: true })
+      wx.setNavigationBarTitle({ title: 'Koch 历史成绩' })
+    }
   },
 
   onShow() {
@@ -59,7 +69,7 @@ Page({
   },
 
   loadHistory() {
-    const records = getLetterScoreHistory()
+    const records = (this.data.isKoch ? getKochScoreHistory() : getLetterScoreHistory())
       .filter(record => record && record.recordedAt)
       .sort((a, b) => a.recordedAt - b.recordedAt)
       .map(record => ({
@@ -93,7 +103,8 @@ Page({
     const id = event.currentTarget.dataset.recordId
     const includeInTrend = event.detail.value
     try {
-      if (!setLetterScoreTrendInclusion(id, includeInTrend)) {
+      const setInclusion = this.data.isKoch ? setKochScoreTrendInclusion : setLetterScoreTrendInclusion
+      if (!setInclusion(id, includeInTrend)) {
         throw new Error('Score record not found')
       }
       this.loadHistory()
@@ -138,10 +149,15 @@ Page({
       records.map(record => record.accuracy),
       { minimumSpan: 10, lowerBound: 0, upperBound: 100, decimalPlaces: 0 },
     )
-    const averageScale = createRelativeScale(
-      records.map(record => record.averageTimeValue),
-      { minimumSpan: 1, lowerBound: 0, upperBound: Infinity, decimalPlaces: 1 },
+    const isKoch = this.data.isKoch
+    const secondaryValue = record => isKoch ? record.lesson : record.averageTimeValue
+    const secondaryScale = createRelativeScale(
+      records.map(secondaryValue),
+      isKoch
+        ? { minimumSpan: 4, lowerBound: 1, upperBound: 40, decimalPlaces: 0 }
+        : { minimumSpan: 1, lowerBound: 0, upperBound: Infinity, decimalPlaces: 1 },
     )
+    const secondaryLabel = value => isKoch ? String(value) : value.toFixed(1) + 's'
     const getX = index => (
       records.length === 1
         ? plot.left + plotWidth / 2
@@ -164,8 +180,8 @@ Page({
     context.fillText(`${accuracyScale.maximum.toFixed(0)}%`, 2, plot.top + 4)
     context.fillText(`${accuracyScale.minimum.toFixed(0)}%`, 2, plot.bottom + 4)
     context.setTextAlign('right')
-    context.fillText(`${averageScale.maximum.toFixed(1)}s`, width - 2, plot.top + 4)
-    context.fillText(`${averageScale.minimum.toFixed(1)}s`, width - 2, plot.bottom + 4)
+    context.fillText(secondaryLabel(secondaryScale.maximum), width - 2, plot.top + 4)
+    context.fillText(secondaryLabel(secondaryScale.minimum), width - 2, plot.bottom + 4)
 
     const accuracyPoints = records.map((record, index) => ({
       x: getX(index),
@@ -174,16 +190,16 @@ Page({
         / (accuracyScale.maximum - accuracyScale.minimum)
       ) * plotHeight,
     }))
-    const timePoints = records.map((record, index) => ({
+    const secondaryPoints = records.map((record, index) => ({
       x: getX(index),
       y: plot.bottom - (
-        (record.averageTimeValue - averageScale.minimum)
-        / (averageScale.maximum - averageScale.minimum)
+        (secondaryValue(record) - secondaryScale.minimum)
+        / (secondaryScale.maximum - secondaryScale.minimum)
       ) * plotHeight,
     }))
 
     this.drawLine(context, accuracyPoints, '#3f8a68')
-    this.drawLine(context, timePoints, '#d66b3d')
+    this.drawLine(context, secondaryPoints, '#d66b3d')
 
     const labelIndices = records.length === 1
       ? [0]

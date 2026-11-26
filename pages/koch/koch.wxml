@@ -45,13 +45,8 @@
     <button wx:for="{{keys}}" wx:key="value" class="quick-key" data-value="{{item.value}}"
       disabled="{{!item.enabled || !answer || submitted || input.length >= 25}}" bindtap="enterCharacter">{{item.value}}</button>
   </view>
-  <button class="secondary-button history-button" bindtap="toggleHistory">{{showHistory ? '收起历史成绩' : '历史成绩'}}</button>
-  <view wx:if="{{showHistory}}">
-    <view wx:if="{{!history.length}}" class="history-row muted">暂无历史成绩</view>
-    <view wx:for="{{history}}" wx:key="id" class="panel history-row">
-      <view>{{item.date}}</view>
-      <view>第 {{item.lesson}} 课 · {{item.characterCount}} 字符 · {{item.wpm}} WPM</view>
-      <view>答对 {{item.correct}} / {{item.total}} · {{item.accuracy}}%</view>
-    </view>
+  <view class="score-actions">
+    <button class="primary-button" bindtap="recordScore">记录成绩</button>
+    <button class="secondary-button" bindtap="openHistory">历史成绩</button>
   </view>
 </view>

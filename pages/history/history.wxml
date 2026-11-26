@@ -1,7 +1,7 @@
 <view class="page-shell history-page">
   <view class="intro">
     <text class="eyebrow">PROGRESS</text>
-    <view class="page-title">历史成绩</view>
+    <view class="page-title">{{isKoch ? 'Koch 历史成绩' : '历史成绩'}}</view>
   </view>
 
   <view class="chart-card panel">
@@ -16,7 +16,7 @@
       </view>
       <view class="legend-item">
         <text class="legend-line time-line"></text>
-        <text>平均时间</text>
+        <text>{{isKoch ? '课程进度' : '平均时间'}}</text>
       </view>
     </view>
     <canvas
@@ -39,7 +39,7 @@
   <view wx:if="{{hasRecords}}" class="record-list">
     <view wx:for="{{records}}" wx:key="id" class="record-card panel">
       <view class="record-header">
-        <view class="record-time">{{item.dateText}}</view>
+        <view class="record-time">{{item.dateText}}<view wx:if="{{isKoch}}">第 {{item.lesson}} 课</view></view>
         <view class="trend-toggle">
           <text class="trend-toggle-label">计入趋势</text>
           <switch
@@ -53,20 +53,20 @@
       </view>
       <view class="record-metrics">
         <view class="record-metric">
-          <text class="metric-value">{{item.questionCount}}</text>
-          <text class="metric-label">题目数量</text>
+          <text class="metric-value">{{isKoch ? item.total : item.questionCount}}</text>
+          <text class="metric-label">{{isKoch ? '字符数' : '题目数量'}}</text>
         </view>
         <view class="record-metric">
-          <text class="metric-value">{{item.correctCount}}</text>
-          <text class="metric-label">正确数量</text>
+          <text class="metric-value">{{isKoch ? item.correct : item.correctCount}}</text>
+          <text class="metric-label">{{isKoch ? '字符正确数' : '正确数量'}}</text>
         </view>
         <view class="record-metric">
           <text class="metric-value">{{item.accuracy}}%</text>
           <text class="metric-label">正确率</text>
         </view>
         <view class="record-metric">
-          <text class="metric-value">{{item.averageTime}}s</text>
-          <text class="metric-label">平均时间</text>
+          <text class="metric-value">{{isKoch ? item.rounds : item.averageTime + 's'}}</text>
+          <text class="metric-label">{{isKoch ? '轮数' : '平均时间'}}</text>
         </view>
         <view class="record-metric">
           <text class="metric-value">{{item.wpmText}}</text>
