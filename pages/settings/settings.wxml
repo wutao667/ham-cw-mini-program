@@ -85,7 +85,7 @@
 
   <button class="preview-button {{isPreviewing ? 'playing' : ''}}" bindtap="preview">
     <text class="preview-icon">▶</text>
-    <view><text class="preview-title">试听 Koch 间隔 · CQ CQ</text></view>
+    <view><text class="preview-title">试听 · CQ CQ</text></view>
   </button>
 
   <view class="save-note">设置已自动保存</view>
