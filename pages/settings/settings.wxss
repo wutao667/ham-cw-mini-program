@@ -8,6 +8,7 @@
 .setting-description { display: block; margin-top: 6rpx; color: #89938d; font-size: 21rpx; }
 .setting-value { color: #9b6147; font-size: 22rpx; }
 .setting-value text { color: #d66b3d; font-size: 42rpx; font-weight: 800; }
+.effective-speed-value { flex: 0 0 116rpx; text-align: right; white-space: nowrap; }
 .setting-value.green, .setting-value.green text { color: #31755d; }
 .presets { display: flex; margin-top: 14rpx; }
 .preset { flex: 1; height: 64rpx; margin: 0 7rpx; padding: 0; color: #647169; background: #f0ede5; border-radius: 12rpx; font-size: 23rpx; line-height: 64rpx; }

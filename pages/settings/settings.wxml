@@ -31,7 +31,7 @@
         <text class="setting-title">有效速度</text>
         <text class="setting-description">仅对 Koch 训练生效。上限为字符速度，此时按正常间隔播放。</text>
       </view>
-      <view class="setting-value"><text>{{effectiveWpm}}</text> WPM</view>
+      <view class="setting-value effective-speed-value"><text>{{effectiveWpm}}</text> WPM</view>
     </view>
     <slider wx:if="{{wpm > 5}}" min="5" max="{{wpm}}" step="1" value="{{effectiveWpm}}" bindchanging="changeEffectiveWpm" bindchange="changeEffectiveWpm" />
   </view>
