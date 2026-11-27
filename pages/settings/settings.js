@@ -7,7 +7,7 @@ Page({
     wpm: 15,
     frequency: 650,
     effectiveWpm: 15,
-    presets: [5, 10, 20, 30],
+    presets: [5, 10, 15, 20, 25, 30],
     unitMs: 80,
     dashMs: 240,
     characterGapMs: 240,
