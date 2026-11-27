@@ -2,9 +2,9 @@
 .course-head { display: flex; justify-content: space-between; font-size: 25rpx; font-weight: 700; }
 .course-steps { display: flex; justify-content: space-between; }
 .course-steps button { width: 64rpx; height: 48rpx; margin: 0; padding: 0; font-size: 28rpx; line-height: 48rpx; }
-.actions, .input-actions, .score-actions { display: flex; gap: 12rpx; }
+.actions, .score-actions { display: flex; gap: 12rpx; }
 .actions { margin: 18rpx 0; }
-.actions button, .input-actions button { flex: 1; margin: 0; padding: 0; font-size: 26rpx; }
+.actions button { flex: 1; margin: 0; padding: 0; font-size: 26rpx; }
 .actions button {
   display: flex;
   align-items: center;
@@ -14,16 +14,17 @@
   line-height: 1.2;
 }
 .comparison { display: flex; align-items: center; gap: 12rpx; }
-.copy-box { flex: 1; align-self: stretch; min-width: 0; padding: 16rpx 12rpx; text-align: center; }
+.copy-box { flex: 1; align-self: stretch; min-width: 0; padding: 12rpx; text-align: center; }
 .box-title { font-size: 24rpx; font-weight: 700; margin-bottom: 10rpx; }
 .muted { color: #65756d; font-size: 20rpx; }
 .copy-group { display: flex; justify-content: center; }
-.character { width: 40rpx; font-family: monospace; font-size: 27rpx; line-height: 36rpx; }
+.character { width: 40rpx; font-family: monospace; font-size: 27rpx; line-height: 34rpx; }
 .character.wrong { color: #ad432b; font-weight: 800; background: #f9e6df; border-radius: 5rpx; }
-.input-actions { margin-top: 12rpx; }
-.input-actions button { line-height: 52rpx; font-size: 22rpx; }
 .answer-placeholder { padding-top: 68rpx; }
-.section-title { margin: 18rpx 0 10rpx; font-weight: 700; font-size: 25rpx; }
+.quick-toolbar { align-items: center; margin: 18rpx 0 8rpx; }
+.section-title { grid-column: span 4; font-weight: 700; font-size: 25rpx; }
 .quick-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8rpx; }
 .quick-grid .quick-key { width: 100%; margin: 0; padding: 0; line-height: 66rpx; font-size: 26rpx; background: #fffdf7; color: #173c30; border-radius: 12rpx; }
+.quick-toolbar .quick-key.secondary-button { background: #e0eee7; }
+.quick-toolbar .quick-key.primary-button { background: #d66b3d; color: #fff; }
 .quick-grid .quick-key[disabled] { background: #e8e5dc; color: #8c918d; }

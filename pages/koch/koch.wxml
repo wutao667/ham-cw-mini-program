@@ -19,10 +19,6 @@
       <view class="copy-group" wx:for="{{inputGroups}}" wx:for-item="group" wx:key="index">
         <text wx:for="{{group.characters}}" wx:key="index" class="character {{item.wrong ? 'wrong' : ''}}">{{item.value}}</text>
       </view>
-      <view class="input-actions">
-        <button class="secondary-button" bindtap="backspace" disabled="{{!input.length || submitted}}" aria-label="回删">←</button>
-        <button class="primary-button" bindtap="submit" disabled="{{input.length !== 25 || submitted}}">提交</button>
-      </view>
     </view>
     <text class="muted">VS</text>
     <view class="panel copy-box">
@@ -43,7 +39,11 @@
     <view class="result-stat"><text class="result-stat-value">{{accuracy}}%</text><text class="result-stat-label">字符正确率</text></view>
   </view>
 
-  <view class="section-title">快捷输入</view>
+  <view class="quick-grid quick-toolbar">
+    <view class="section-title">快捷输入</view>
+    <button class="quick-key secondary-button" bindtap="backspace" disabled="{{!input.length || submitted}}" aria-label="回删">←</button>
+    <button class="quick-key primary-button" bindtap="submit" disabled="{{input.length !== 25 || submitted}}">提交</button>
+  </view>
   <view class="quick-grid">
     <button wx:for="{{keys}}" wx:key="value" class="quick-key" data-value="{{item.value}}"
       disabled="{{!item.enabled}}" bindtap="enterCharacter">{{item.value}}</button>
