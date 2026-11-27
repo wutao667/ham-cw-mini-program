@@ -24,6 +24,8 @@ function groupCharacters(characters, answer) {
 Page({
   data: {
     lesson: 1,
+    wpm: 15,
+    effectiveWpm: 15,
     keys: lessonKeys(1),
     previewLesson: 0,
     answer: '',
@@ -41,6 +43,11 @@ Page({
   onLoad() {
     const lesson = Number(wx.getStorageSync(LESSON_KEY))
     this.selectLesson(Number.isInteger(lesson) && lesson >= 1 && lesson <= 40 ? lesson : 1)
+  },
+
+  onShow() {
+    const { wpm, effectiveWpm = wpm } = getApp().globalData.cwSettings
+    this.setData({ wpm, effectiveWpm })
   },
 
   selectLesson(lesson) {
