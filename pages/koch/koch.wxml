@@ -4,7 +4,9 @@
     <slider min="1" max="40" step="1" value="{{lesson}}" bindchanging="previewLessonChange" bindchange="changeLesson" activeColor="#31755d" />
     <view class="course-steps">
       <button class="secondary-button" data-step="-1" bindtap="stepLesson" disabled="{{lesson === 1}}" aria-label="上一课">−</button>
-      <text class="course-speed">字符 {{wpm}} WPM · 有效 {{effectiveWpm}} WPM</text>
+      <navigator class="course-speed" url="/pages/settings/settings" open-type="navigate" hover-class="course-speed-pressed" aria-label="打开播放设置">
+        字符 {{wpm}} WPM · 有效 {{effectiveWpm}} WPM ›
+      </navigator>
       <button class="secondary-button" data-step="1" bindtap="stepLesson" disabled="{{lesson === 40}}" aria-label="下一课">+</button>
     </view>
   </view>

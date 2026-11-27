@@ -1,7 +1,8 @@
 .course { padding: 20rpx 24rpx; }
 .course-head { display: flex; justify-content: space-between; font-size: 25rpx; font-weight: 700; }
 .course-steps { display: flex; align-items: center; justify-content: space-between; }
-.course-speed { color: #65756d; font-size: 21rpx; text-align: center; }
+.course-speed { padding: 10rpx 12rpx; color: #31755d; font-size: 21rpx; text-align: center; }
+.course-speed-pressed { opacity: .65; }
 .course-steps button { width: 64rpx; height: 48rpx; margin: 0; padding: 0; font-size: 28rpx; line-height: 48rpx; }
 .actions, .score-actions { display: flex; gap: 12rpx; }
 .actions { margin: 18rpx 0; }
