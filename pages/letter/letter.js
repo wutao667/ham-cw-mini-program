@@ -56,7 +56,8 @@ Page({
       isCorrect: false,
       counted: false,
     })
-    setTimeout(() => this.playCurrent(), 120)
+    clearTimeout(this.pendingPlaybackTimer)
+    this.pendingPlaybackTimer = setTimeout(() => this.playCurrent(), 120)
   },
 
   replay() {
@@ -68,6 +69,8 @@ Page({
   },
 
   playCurrent() {
+    clearTimeout(this.pendingPlaybackTimer)
+    this.pendingPlaybackTimer = null
     cwAudio.play(this.data.answer, this.data)
   },
 
@@ -195,12 +198,19 @@ Page({
     }
   },
 
+  onHide() {
+    clearTimeout(this.autoNextTimer)
+    clearTimeout(this.pendingPlaybackTimer)
+    this.autoNextTimer = null
+    this.pendingPlaybackTimer = null
+    cwAudio.stop()
+  },
+
   onUnload() {
-    if (this.autoNextTimer) clearTimeout(this.autoNextTimer)
+    this.onHide()
     if (this.averageTimer) clearInterval(this.averageTimer)
     this.averageTimer = null
     this.sessionStartTime = null
     this.questionHistory = []
-    cwAudio.stop()
   },
 })

@@ -57,26 +57,18 @@
   font-size: 31rpx;
 }
 
-.play-hint {
+.speed-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 14rpx;
-  color: #7c8981;
+  margin-top: 6rpx;
+  padding: 8rpx 0;
+  color: #31755d;
   font-size: 20rpx;
 }
 
-.status-dot {
-  width: 12rpx;
-  height: 12rpx;
-  margin-right: 10rpx;
-  background: #aeb7b1;
-  border-radius: 50%;
-}
-
-.status-dot.active {
-  background: #3f8a68;
-  box-shadow: 0 0 0 7rpx rgba(63, 138, 104, 0.12);
+.speed-link-pressed {
+  opacity: .65;
 }
 
 .answer-area {

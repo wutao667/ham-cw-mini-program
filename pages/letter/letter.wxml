@@ -16,10 +16,10 @@
         <text>重播</text>
       </button>
     </view>
-    <view class="play-hint">
-      <text class="status-dot {{hasQuestion ? 'active' : ''}}"></text>
-      <text>{{hasQuestion ? '题目已播放，可以重复收听' : '题库包含 A–Z、0–9 和 5 个标点'}}</text>
-    </view>
+    <navigator class="speed-link" url="/pages/settings/settings" open-type="navigate"
+      hover-class="speed-link-pressed" aria-label="打开字符速度设置">
+      字符速度 {{wpm}} WPM ›
+    </navigator>
   </view>
 
   <view class="answer-area">
