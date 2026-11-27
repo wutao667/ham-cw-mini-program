@@ -70,12 +70,12 @@
       </view>
       <view class="timing-row">
         <view class="symbol gap character"></view>
-        <view class="timing-name"><text>字符间隔</text></view>
+        <view class="timing-name"><text>字符间隔</text><text>{{characterGapUnits}} 个时间单位</text></view>
         <text class="timing-ms">{{characterGapMs}} ms</text>
       </view>
       <view class="timing-row">
         <view class="symbol gap word"></view>
-        <view class="timing-name"><text>组间隔</text></view>
+        <view class="timing-name"><text>组间隔</text><text>{{wordGapUnits}} 个时间单位</text></view>
         <text class="timing-ms">{{wordGapMs}} ms</text>
       </view>
     </view>

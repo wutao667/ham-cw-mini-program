@@ -12,6 +12,8 @@ Page({
     dashMs: 240,
     characterGapMs: 240,
     wordGapMs: 560,
+    characterGapUnits: 3,
+    wordGapUnits: 7,
     isPreviewing: false,
   },
 
@@ -29,6 +31,8 @@ Page({
       dashMs: Math.round(unit * 3000),
       characterGapMs: Math.round(characterGap * 1000),
       wordGapMs: Math.round(wordGap * 1000),
+      characterGapUnits: Number((characterGap / unit).toFixed(2)),
+      wordGapUnits: Number((wordGap / unit).toFixed(2)),
     })
     app.globalData.cwSettings = { wpm, frequency, effectiveWpm }
     if (shouldSave) wx.setStorageSync('cwSettings', app.globalData.cwSettings)
