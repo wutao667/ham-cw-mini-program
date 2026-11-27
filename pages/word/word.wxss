@@ -24,9 +24,8 @@
 .replay-button { width: 170rpx; margin-left: 16rpx; color: #173c30; background: #e0eee7; border-radius: 999rpx; }
 .play-icon { margin-right: 12rpx; font-size: 24rpx; }
 .replay-icon { margin-right: 8rpx; font-size: 28rpx; }
-.play-hint { display: flex; align-items: center; justify-content: center; margin-top: 18rpx; color: #7c8981; font-size: 20rpx; }
-.status-dot { flex-shrink: 0; width: 10rpx; height: 10rpx; margin-right: 10rpx; background: #aeb7b1; border-radius: 50%; }
-.status-dot.active { background: #48758b; box-shadow: 0 0 0 6rpx rgba(72, 117, 139, .12); }
+.speed-link { display: flex; align-items: center; justify-content: center; margin-top: 6rpx; padding: 8rpx 0; color: #31755d; font-size: 20rpx; }
+.speed-link-pressed { opacity: .65; }
 .answer-area { margin-top: 24rpx; }
 .box-label { margin: 0 8rpx 10rpx; color: #536159; font-size: 23rpx; font-weight: 700; }
 .word-input, .reveal-box { width: 100%; box-sizing: border-box; color: #17221d; background: #fffdf7; border: 3rpx solid #ded7c9; border-radius: 20rpx; font-size: 29rpx; line-height: 1.65; letter-spacing: 1rpx; }

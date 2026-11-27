@@ -52,10 +52,10 @@
         <text>{{isPlaying ? '停止' : '重播'}}</text>
       </button>
     </view>
-    <view class="play-hint">
-      <text class="status-dot {{isPlaying ? 'active' : ''}}"></text>
-      <text>{{wpm}} WPM · {{isPlaying ? '正在播放，可停止后重播' : (hasQuestion ? '输入听到的内容，可重复收听' : '点击生成开始抄收')}}</text>
-    </view>
+    <navigator class="speed-link" url="/pages/settings/settings" open-type="navigate"
+      hover-class="speed-link-pressed" aria-label="打开字符速度设置">
+      字符速度 {{wpm}} WPM ›
+    </navigator>
   </view>
 
   <view class="answer-area">
