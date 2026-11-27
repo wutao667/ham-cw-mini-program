@@ -10,7 +10,7 @@
 
   <view class="actions">
     <button class="primary-button" bindtap="nextRound">下一轮</button>
-    <button class="secondary-button" bindtap="replay" disabled="{{!answer}}">重播</button>
+    <button class="secondary-button" bindtap="replay" disabled="{{!answer}}">{{isPlaying ? '暂停' : '重播'}}</button>
   </view>
 
   <view class="comparison">

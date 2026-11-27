@@ -31,6 +31,7 @@ Page({
     inputGroups: groupCharacters(''),
     answerGroups: [],
     submitted: false,
+    isPlaying: false,
     rounds: 0,
     total: 0,
     correct: 0,
@@ -43,7 +44,7 @@ Page({
   },
 
   selectLesson(lesson) {
-    cwAudio.stop()
+    this.stopPlayback()
     this.setData({
       lesson,
       previewLesson: 0,
@@ -96,11 +97,31 @@ Page({
       answerGroups: [],
       submitted: false,
     })
-    this.replay()
+    this.playCurrent()
   },
 
   replay() {
-    if (this.data.answer) cwAudio.play(this.data.answer.match(/.{5}/g).join(' '), this.roundAudio)
+    if (this.data.isPlaying) this.stopPlayback()
+    else this.playCurrent()
+  },
+
+  playCurrent() {
+    if (!this.data.answer) return
+    this.stopPlayback()
+    const duration = cwAudio.play(this.data.answer.match(/.{5}/g).join(' '), this.roundAudio)
+    if (duration <= 0) return
+    this.setData({ isPlaying: true })
+    this.playbackTimer = setTimeout(() => {
+      this.playbackTimer = null
+      this.setData({ isPlaying: false })
+    }, duration)
+  },
+
+  stopPlayback() {
+    clearTimeout(this.playbackTimer)
+    this.playbackTimer = null
+    cwAudio.stop()
+    if (this.data.isPlaying) this.setData({ isPlaying: false })
   },
 
   enterCharacter(event) {
@@ -132,7 +153,7 @@ Page({
     const correct = (sameSpeed ? this.data.correct : 0) + roundCorrect
     this.scoreWpm = this.roundAudio.wpm
     this.scoreEffectiveWpm = this.roundAudio.effectiveWpm
-    cwAudio.stop()
+    this.stopPlayback()
     this.setData({
       submitted: true,
       inputGroups: groupCharacters(input, answer),
@@ -165,6 +186,6 @@ Page({
     wx.navigateTo({ url: '/pages/history/history?mode=koch' })
   },
 
-  onHide() { cwAudio.stop() },
-  onUnload() { cwAudio.stop() },
+  onHide() { this.stopPlayback() },
+  onUnload() { this.stopPlayback() },
 })

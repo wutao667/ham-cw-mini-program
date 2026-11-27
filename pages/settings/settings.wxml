@@ -28,6 +28,17 @@
   <view class="settings-card panel">
     <view class="setting-title-row">
       <view>
+        <text class="setting-title">有效速度</text>
+        <text class="setting-description">仅对 Koch 训练模式生效</text>
+      </view>
+      <view class="setting-value"><text>{{effectiveWpm}}</text> WPM</view>
+    </view>
+    <slider wx:if="{{wpm > 5}}" min="5" max="{{wpm}}" step="1" value="{{effectiveWpm}}" bindchange="changeEffectiveWpm" />
+  </view>
+
+  <view class="settings-card panel">
+    <view class="setting-title-row">
+      <view>
         <text class="setting-title">音调频率</text>
         <text class="setting-description">选择听起来舒适清晰的音高</text>
       </view>
@@ -37,21 +48,10 @@
     <view class="frequency-scale"><text>低 · 400 Hz</text><text>900 Hz · 高</text></view>
   </view>
 
-  <view class="settings-card panel">
-    <view class="setting-title-row">
-      <view>
-        <text class="setting-title">有效速度</text>
-        <text class="setting-description">降低速度会延长字符和词组之间的间隔</text>
-      </view>
-      <view class="setting-value"><text>{{effectiveWpm}}</text> WPM</view>
-    </view>
-    <slider wx:if="{{wpm > 5}}" min="5" max="{{wpm}}" step="1" value="{{effectiveWpm}}" bindchange="changeEffectiveWpm" />
-  </view>
-
   <view class="standard-card panel">
     <view class="standard-head">
       <view>
-        <text class="standard-title">当前 CW 时值</text>
+        <text class="standard-title">Koch 训练时值</text>
         <text class="standard-note">当前 1 单位 = {{unitMs}} ms</text>
       </view>
       <view class="standard-badge">{{effectiveWpm < wpm ? 'Farnsworth' : '1 : 3 : 3 : 7'}}</view>
@@ -75,7 +75,7 @@
       </view>
       <view class="timing-row">
         <view class="symbol gap word"></view>
-        <view class="timing-name"><text>单词与 Koch 组间隔</text></view>
+        <view class="timing-name"><text>组间隔</text></view>
         <text class="timing-ms">{{wordGapMs}} ms</text>
       </view>
     </view>
@@ -85,7 +85,7 @@
 
   <button class="preview-button {{isPreviewing ? 'playing' : ''}}" bindtap="preview">
     <text class="preview-icon">▶</text>
-    <view><text class="preview-title">试听 CQ CQ</text></view>
+    <view><text class="preview-title">试听 Koch 间隔 · CQ CQ</text></view>
   </button>
 
   <view class="save-note">设置已自动保存</view>
