@@ -33,7 +33,7 @@
       </view>
       <view class="setting-value"><text>{{effectiveWpm}}</text> WPM</view>
     </view>
-    <slider wx:if="{{wpm > 5}}" min="5" max="{{wpm}}" step="1" value="{{effectiveWpm}}" bindchange="changeEffectiveWpm" />
+    <slider wx:if="{{wpm > 5}}" min="5" max="{{wpm}}" step="1" value="{{effectiveWpm}}" bindchanging="changeEffectiveWpm" bindchange="changeEffectiveWpm" />
   </view>
 
   <view class="settings-card panel">
