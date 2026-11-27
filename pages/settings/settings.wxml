@@ -29,7 +29,7 @@
     <view class="setting-title-row">
       <view>
         <text class="setting-title">有效速度</text>
-        <text class="setting-description">仅对 Koch 训练模式生效</text>
+        <text class="setting-description">仅对 Koch 训练生效。上限为字符速度，此时按正常间隔播放。</text>
       </view>
       <view class="setting-value"><text>{{effectiveWpm}}</text> WPM</view>
     </view>
