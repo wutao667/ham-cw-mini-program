@@ -14,7 +14,7 @@ Page({
         number: '02',
         tag: '再辨音',
         title: '字母听写',
-        description: '随机播放字母、数字或标点，输入答案并即时核对。',
+        description: '听写字母、数字和标点。',
         accent: 'orange',
       },
       {
@@ -30,7 +30,7 @@ Page({
         number: '04',
         tag: '连起来',
         title: '单词听写',
-        description: '抄收常用词、呼号与通联句子，逐步练习真实通联。',
+        description: '听写单词、呼号和通联短句。',
         accent: 'blue',
       },
     ],
