@@ -6,7 +6,7 @@ Page({
         number: '01',
         tag: '先认识',
         title: '字母学习',
-        description: '看码形，听点划。',
+        description: '学习单个字符的码形',
         accent: 'green',
       },
       {
@@ -22,7 +22,7 @@ Page({
         number: '03',
         tag: '成组听',
         title: 'Koch 训练',
-        description: '从两个字符开始练听写。',
+        description: '科学的渐进学习法',
         accent: 'green',
       },
       {
